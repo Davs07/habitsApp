@@ -1,11 +1,11 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { HabitsPage } from "./pages/Habits/HabitsPage";
 import { Try } from "./layouts/Try";
 import { HabitTry } from "./layouts/HabitTry";
 
 function App() {
   return (
-    <div className="h-screen overflow-hidden ">
+    <div className="h-screen overflow-hidden grid place-items-center ">
       <Routes>
         <Route path="/" element={<HabitsPage />} />
         <Route path="/try" element={<Try />} />

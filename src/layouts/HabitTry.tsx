@@ -9,6 +9,8 @@ import {
   addWeeks,
 } from "date-fns";
 import { es } from "date-fns/locale";
+import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CompletedDay {
   date: string;
@@ -59,8 +61,13 @@ export const HabitTry = () => {
       formattedDate: format(date, "yyyy-MM-dd"),
       displayDate: format(date, "d/M/yyyy"),
       dayName: format(date, "EEEE", { locale: es }),
+      dayNumber: format(date, "dd"),
     };
   });
+
+  const capitalize = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  };
 
   const handleCheckboxChange = (habitoId: string, date: string) => {
     setHabitos(
@@ -92,57 +99,85 @@ export const HabitTry = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center h-full w-max justify-start">
       <h1 className="mb-4">Checkbox Test</h1>
-      <h2 className="mb-2">
-        {format(currentWeekStart, "d/M/yyyy")} -{" "}
-        {format(currentWeekEnd, "d/M/yyyy")}
-      </h2>
-      <div className="flex space-x-2 mb-4">
-        <button
-          onClick={handlePreviousWeek}
-          className="px-4 py-2 bg-gray-200 rounded">
-          Semana Anterior
-        </button>
-        <button
-          onClick={handleCurrentWeek}
-          className="px-4 py-2 bg-gray-200 rounded">
-          Semana Actual
-        </button>
-        <button
-          onClick={handleNextWeek}
-          className="px-4 py-2 bg-gray-200 rounded">
-          Siguiente Semana
-        </button>
-      </div>
-      {habitos.map((habito) => (
-        <div key={habito.id} className="mb-4">
-          <h3>{habito.name}</h3>
-          <div className="flex space-x-2">
-            {daysOfCurrentWeek.map(
-              ({ formattedDate, displayDate, dayName }) => {
-                const isChecked = habito.completedDays.some(
-                  (day) => day.date === formattedDate
-                );
-                return (
-                  <label
-                    key={formattedDate}
-                    className="flex items-center space-x-2">
-                    <Checkbox
-                      checked={isChecked}
-                      onClick={() =>
-                        handleCheckboxChange(habito.id, formattedDate)
-                      }
-                      className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
-                    />
-                    <span>{`${dayName}, ${displayDate}`}</span>
-                  </label>
-                );
-              }
-            )}
-          </div>
+
+      <div className="flex w-full mb-4 justify-between">
+        <div className="flex space-x-2 justify-center items-center">
+          <Button
+            onClick={handlePreviousWeek}
+            size={"icon"}
+            className=" bg-gray-200 text-black hover:text-white rounded-3xl">
+            <ChevronLeft />
+          </Button>
+          <Button
+            onClick={handleCurrentWeek}
+            className="px-4 py-2 bg-gray-200 text-black hover:text-white rounded-3xl">
+            Semana Actual
+          </Button>
+          <Button
+            onClick={handleNextWeek}
+            size={"icon"}
+            className=" bg-gray-200 text-black hover:text-white rounded-3xl">
+            <ChevronRight />
+          </Button>
         </div>
-      ))}
+        <div>
+          <h3 className="mb-2">
+            {capitalize(format(currentWeekStart, "EEEE", { locale: es }))},{" "}
+            {format(currentWeekStart, "d", { locale: es })}{" "}
+            {capitalize(format(currentWeekStart, "LLL", { locale: es }))} -{" "}
+            {capitalize(format(currentWeekEnd, "EEEE", { locale: es }))},{" "}
+            {format(currentWeekEnd, "d", { locale: es })}{" "}
+            {capitalize(format(currentWeekEnd, "LLL", { locale: es }))}
+          </h3>
+        </div>
+      </div>
+
+      <div>
+        <table>
+          <thead>
+            <tr className="text-gray-600 uppercase text-sm leading-normal">
+              <th className="py-3 px-6 text-left">Hábito</th>
+              {daysOfCurrentWeek.map(({ formattedDate, dayName }) => (
+                <th key={formattedDate} className="py-3 px-6 text-center">
+                  {`${dayName}`}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {habitos.map((habito) => (
+              <tr
+                key={habito.id}
+                className="border-b border-gray-200 hover:bg-gray-100">
+                <td className="py-3 px-6 text-left whitespace-nowrap">
+                  {habito.name}
+                </td>
+                {daysOfCurrentWeek.map(
+                  ({ formattedDate, displayDate, dayNumber }) => {
+                    const isChecked = habito.completedDays.some(
+                      (day) => day.date === formattedDate
+                    );
+                    return (
+                      <td key={formattedDate} className="py-3 px-6 text-center">
+                        <Checkbox
+                          checked={isChecked}
+                          onClick={() =>
+                            handleCheckboxChange(habito.id, formattedDate)
+                          }
+                          className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+                        />
+                        {/* <span>{`${dayNumber}, ${displayDate}`}</span> */}
+                      </td>
+                    );
+                  }
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
