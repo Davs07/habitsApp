@@ -1,6 +1,7 @@
 import { habits } from "@/api/Habits/Habits";
 import { Habit } from "@/api/habit-types";
 import { Calendario } from "@/components/Calendario";
+import Chart from "@/components/Chart";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,6 +70,17 @@ export const HabitPage = () => {
       </div>
       <div>
         <h3>Estadísticas</h3>
+
+        <div>
+          <h4>Racha</h4>
+          <div>
+            <Label>Actual</Label> 0 días
+            <Label>Mejor</Label> 0 días
+            <div>
+              <Chart />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
