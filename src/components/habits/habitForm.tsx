@@ -66,7 +66,11 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
         setDescription(value);
         break;
       case "goalMeta":
-        setGoalMeta(goalType === "Cantidad" ? Number(value) : Boolean(value));
+        setGoalMeta(
+          goalType === "Cantidad" || "Cronometro"
+            ? Number(value)
+            : Boolean(value)
+        );
         break;
       case "interval":
         setIntervalDays(Number(value));
@@ -119,6 +123,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
       comments,
       completedDays,
     };
+    console.log(newHabit);
     addHabit(newHabit);
     // Reset form
     setName("");
@@ -141,7 +146,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
   };
 
   return (
-    <Card className="w-[400px] rounded-2xl">
+    <Card className="max-w-[500px] w-full rounded-2xl">
       <CardHeader>
         <CardTitle>Crea un nuevo hábito</CardTitle>
         <CardDescription>
