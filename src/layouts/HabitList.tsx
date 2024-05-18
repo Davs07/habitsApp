@@ -3,12 +3,17 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { HabitForm } from "@/components/habits/habitForm";
 
 import React from "react";
+import { Habit } from "@/api/habit-types";
 
-export const HabitList = () => {
-  const [habits, setHabits] = React.useState(initialHabits);
+export const HabitList: React.FC = () => {
+  const [habits, setHabits] = React.useState<Habit[]>(initialHabits);
+
+  const addHabit = (newHabit: Habit) => {
+    setHabits((prevHabits) => [...prevHabits, newHabit]);
+  };
 
   return (
-    <div className=" h-full w-max justify-start items-start gap-2 grid grid-cols-1">
+    <div className=" h-full w-max justify-start items-start gap-2 grid grid-cols-1 ">
       <div className=" h-max w-max justify-start items-start gap-2 grid grid-cols-1">
         {habits.map((habit) => (
           <Card className="space-y-0 ">
@@ -22,7 +27,7 @@ export const HabitList = () => {
           </Card>
         ))}
       </div>
-      <HabitForm />
+      <HabitForm addHabit={addHabit} />
     </div>
   );
 };

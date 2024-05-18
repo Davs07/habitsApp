@@ -32,10 +32,8 @@ export interface SmartDescription {
 }
 
 export type Frequency =
-  | { type: "Diario" }
-  | { type: "Semanal"; dias: Day[] }
-  | { type: "Mensual"; dias: number[] }
-  | { type: "PorPeriodo"; veces: number; periodo: Periodo }
+  | { type: "TodosLosDias" }
+  | { type: "DiasEspecificos"; dias: Day[] }
   | { type: "CadaXdías"; veces: number };
 
 export type Periodo = "Semana" | "Mes" | "Año";
@@ -48,16 +46,11 @@ export type Goal =
 
 export function isValidFrequency(frequency: Frequency): boolean {
   switch (frequency.type) {
-    case "Diario":
+    case "TodosLosDias":
       return true;
-    case "Semanal":
+    case "DiasEspecificos":
       return frequency.dias.length > 0;
-    case "Mensual":
-      return (
-        frequency.dias.length > 0 &&
-        frequency.dias.every((day) => day >= 1 && day <= 31)
-      );
-    case "PorPeriodo":
+    case "CadaXdías":
       return frequency.veces > 0;
     default:
       return false;

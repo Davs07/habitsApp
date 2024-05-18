@@ -33,7 +33,7 @@ export function createHabit(data: Partial<Habit>): Habit {
 
 function validateFrequency(frequency?: Frequency): Frequency {
   if (!frequency) {
-    return { type: "Diario" };
+    return { type: "TodosLosDias" };
   }
 
   if (!isValidFrequency(frequency)) {

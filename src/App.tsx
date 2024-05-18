@@ -6,7 +6,7 @@ import { HabitList } from "./layouts/HabitList";
 
 function App() {
   return (
-    <div className="h-screen overflow-hidden grid place-items-center bg-background dark ">
+    <div className="h-screen overflow-hidden grid place-items-center bg-background overflow-y-auto ">
       <Routes>
         <Route path="/" element={<HabitsPage />} />
         <Route path="/try" element={<Try />} />
