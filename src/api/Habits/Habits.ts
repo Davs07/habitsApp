@@ -26,7 +26,38 @@ export const habits: Habit[] = [
     comments: [
       "Leer diariamente ha mejorado mi enfoque y mi conocimiento en varias áreas.",
     ],
-    completedDays: [],
+    completedDays: [
+      {
+        date: "2024-02-13",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+      {
+        date: "2024-03-13",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+      {
+        date: "2024-05-13",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+      {
+        date: "2024-05-15",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+      {
+        date: "2024-05-16",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+      {
+        date: "2024-05-17",
+        completed: true,
+        otherDetails: "Caminé 10,000 pasos",
+      },
+    ],
   },
   {
     id: "3",
