@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { HabitsPage } from "./pages/Habits/HabitsPage";
 import { Try } from "./layouts/Try";
 import { HabitTry } from "./layouts/HabitTry";
+import { HabitList } from "./layouts/HabitList";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Route path="/" element={<HabitsPage />} />
         <Route path="/try" element={<Try />} />
         <Route path="/habittry" element={<HabitTry />} />
+        <Route path="/habitlist" element={<HabitList />} />
       </Routes>
     </div>
   );

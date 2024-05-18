@@ -103,20 +103,26 @@ h4 {
 }
 
 /* Texto */
-.tb {
+.tlg {
   font-size: 18px;
   line-height: 1.6;
   font-weight: 400; /* Grosor normal */
 }
 
-.tm {
+.tmd {
   font-size: 16px;
   line-height: 1.6;
   font-weight: 400; /* Grosor normal */
 }
 
-.ts {
+.tsm {
   font-size: 14px;
   line-height: 1.6;
+  font-weight: 400; /* Grosor normal */
+}
+
+.txs {
+  font-size: 12px;
+  line-height: 1.5;
   font-weight: 400; /* Grosor normal */
 }
