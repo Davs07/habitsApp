@@ -1,4 +1,5 @@
 import { CompletedDay, Habit } from "@/api/habit-types";
+import { parseISO } from "date-fns";
 import React from "react";
 import {
   BarChart,
@@ -23,7 +24,7 @@ export const Chart: React.FC<ChartProps> = (props) => {
 
   const completadosPorMes = habit.completedDays?.reduce<CompletadosPorMes>(
     (acc, day) => {
-      const month = new Date(day.date).getMonth(); // Extraer el mes del formato "YYYY-MM-DD"
+      const month = parseISO(day.date).getMonth(); // Extraer el mes correctamente
       acc[month] = (acc[month] || 0) + 1; // Incrementa el contador para el mes
       return acc;
     },

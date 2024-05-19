@@ -1,15 +1,7 @@
 import { habits as initialHabits } from "@/api/Habits/Habits";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { HabitForm } from "@/components/habits/habitForm";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import { Habit } from "@/api/habit-types";
 import { Button } from "@/components/ui/button";

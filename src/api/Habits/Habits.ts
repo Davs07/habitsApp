@@ -29,34 +29,19 @@ export const habits: Habit[] = [
     priority: "Alta",
     completedDays: [
       {
-        date: "2024-02-13",
+        date: "2024-04-01",
         completed: true,
-        otherDetails: "Caminé 10,000 pasos",
+        otherDetails: "Leido 30 minutos",
       },
       {
-        date: "2024-03-13",
+        date: "2024-05-01",
         completed: true,
-        otherDetails: "Caminé 10,000 pasos",
-      },
-      {
-        date: "2024-05-13",
-        completed: true,
-        otherDetails: "Caminé 10,000 pasos",
-      },
-      {
-        date: "2024-05-15",
-        completed: true,
-        otherDetails: "Caminé 10,000 pasos",
+        otherDetails: "Leido 30 minutos",
       },
       {
         date: "2024-05-16",
         completed: true,
-        otherDetails: "Caminé 10,000 pasos",
-      },
-      {
-        date: "2024-05-17",
-        completed: true,
-        otherDetails: "Caminé 10,000 pasos",
+        otherDetails: "Leido 30 minutos",
       },
     ],
   },

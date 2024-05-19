@@ -1,16 +1,19 @@
 import * as React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Habit } from "@/api/habit-types";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 
 interface CalendarioProps {
   habit: Habit;
   handleCheckboxChange: (date: string) => void;
 }
-export const Calendario: React.FC<CalendarioProps> = (props) => {
-  const { habit, handleCheckboxChange } = props;
+export const Calendario: React.FC<CalendarioProps> = ({
+  habit,
+  handleCheckboxChange,
+}) => {
+  // const { habit, handleCheckboxChange } = props;
   const [selectedDates, setSelectedDates] = React.useState<Date[]>(
-    habit.completedDays?.map((day) => new Date(day.date)) || []
+    habit.completedDays?.map((day) => parseISO(day.date)) || []
   );
 
   return (
