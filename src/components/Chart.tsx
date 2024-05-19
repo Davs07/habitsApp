@@ -1,3 +1,4 @@
+import { CompletedDay, Habit } from "@/api/habit-types";
 import React from "react";
 import {
   BarChart,
@@ -9,80 +10,48 @@ import {
   Legend,
 } from "recharts";
 
-const habit = {
-  id: "2",
-  name: "Lectura diaria",
-  description: "Leer al menos 30 minutos cada día.",
-  frequency: { type: "TodosLosDias" },
-  category: "Productividad", // Asumiendo que el import de Category es correcto y está definido así
-  goal: { type: "Cronometro", meta: 30 },
-  completedDays: [
-    {
-      date: "2024-02-13",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-    {
-      date: "2024-03-13",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-    {
-      date: "2024-05-13",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-    {
-      date: "2024-05-15",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-    {
-      date: "2024-05-16",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-    {
-      date: "2024-05-17",
-      completed: true,
-      otherDetails: "Caminé 10,000 pasos",
-    },
-  ],
-};
-
 interface CompletadosPorMes {
   [key: string]: number; // Asumiendo que queremos contar los completados, usamos number
 }
+interface ChartProps {
+  habit: Habit;
+  completedDays: CompletedDay[] | undefined;
+}
 
-const completadosPorMes = habit.completedDays?.reduce<CompletadosPorMes>(
-  (acc, day) => {
-    const month = new Date(day.date).getMonth(); // Extraer el mes del formato "YYYY-MM-DD"
-    acc[month] = (acc[month] || 0) + 1; // Incrementa el contador para el mes
-    return acc;
-  },
-  {}
-);
+export const Chart: React.FC<ChartProps> = (props) => {
+  const { habit, completedDays } = props;
 
-const monthNames = [
-  "Ene",
-  "Feb",
-  "Mar",
-  "Abr",
-  "May",
-  "Jun",
-  "Jul",
-  "Ago",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dic",
-];
-const data = monthNames.map((month, index) => ({
-  name: month,
-  completados: completadosPorMes[index] || 0,
-}));
+  const completadosPorMes = habit.completedDays?.reduce<CompletadosPorMes>(
+    (acc, day) => {
+      const month = new Date(day.date).getMonth(); // Extraer el mes del formato "YYYY-MM-DD"
+      acc[month] = (acc[month] || 0) + 1; // Incrementa el contador para el mes
+      return acc;
+    },
+    {}
+  );
 
-export default function Chart() {
+  const monthNames = [
+    "Ene",
+    "Feb",
+    "Mar",
+    "Abr",
+    "May",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dic",
+  ];
+  const data = monthNames.map((month, index) => ({
+    name: month,
+    completados: completadosPorMes ? completadosPorMes[index] : 0,
+  }));
+
+  if (!completedDays) {
+    return null;
+  }
   return (
     <BarChart
       width={700}
@@ -102,4 +71,4 @@ export default function Chart() {
       <Bar dataKey="completados" fill="#3B82F6" />{" "}
     </BarChart>
   );
-}
+};

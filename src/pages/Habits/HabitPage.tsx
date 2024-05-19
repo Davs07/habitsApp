@@ -1,22 +1,36 @@
 import { habits } from "@/api/Habits/Habits";
 import { Habit } from "@/api/habit-types";
 import { Calendario } from "@/components/Calendario";
-import Chart from "@/components/Chart";
+import { Chart } from "@/components/Chart";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import React from "react";
 
 export const HabitPage = () => {
-  const [habit, setHabit] = React.useState<Habit>(habits[1]);
+  const [habit, setHabit] = React.useState<Habit>(habits[0]);
+
+  React.useEffect(() => {
+    setHabit(habit);
+  });
 
   const handleCheckboxChange = (date: string) => {
-    setHabit({
+    /* 
+     setHabit({
       ...habit,
       completedDays: habit.completedDays?.some((day) => day.date === date)
         ? habit.completedDays.filter((day) => day.date !== date)
         : [...(habit.completedDays ?? []), { date, completed: true }],
     });
+    */
+    setHabit((prevHabit) => ({
+      ...prevHabit,
+      completedDays: prevHabit.completedDays?.some((day) => day.date === date)
+        ? prevHabit.completedDays.filter((day) => day.date !== date)
+        : [...(prevHabit.completedDays ?? []), { date, completed: true }],
+    }));
+    console.log(date);
+    console.log(habit.completedDays);
   };
 
   return (
@@ -122,7 +136,7 @@ export const HabitPage = () => {
           <h4>Mes</h4>
           <div>
             <div>
-              <Chart />
+              <Chart habit={habit} completedDays={habit.completedDays} />
             </div>
           </div>
         </div>
