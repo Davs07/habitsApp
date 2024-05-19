@@ -26,9 +26,11 @@ import {
   Frequency,
   Goal,
   SmartDescription,
+  Priority,
 } from "@/api/habit-types";
 import { v4 as uuidv4 } from "uuid";
 import { Category, Day } from "@/api/shared-types";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 interface HabitFormProps {
   addHabit: (habit: Habit) => void;
@@ -188,6 +190,7 @@ const FrequencySection: React.FC<{
 
 const SmartDescriptionSection: React.FC<{
   smartDescription: SmartDescription;
+  DialogClose?: React.ReactNode;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -208,8 +211,9 @@ const SmartDescriptionSection: React.FC<{
 export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [goalType, setGoalType] = useState<Goal["type"]>("SiNo");
+  const [goalType, setGoalType] = useState<Goal["type"]>("");
   const [goalMeta, setGoalMeta] = useState<Goal["meta"]>(false);
+  const [priority, setPriority] = useState<Priority>("");
   const [frequencyType, setFrequencyType] =
     useState<Frequency["type"]>("TodosLosDias");
   const [specificDays, setSpecificDays] = useState<Day[]>([]);
@@ -272,6 +276,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
       smartDescription,
       comments,
       completedDays,
+      priority,
     };
     addHabit(newHabit);
     console.log(newHabit);
@@ -284,6 +289,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
     setSpecificDays([]);
     setIntervalDays(1);
     setCategory(Category.Otro);
+    setPriority("");
     setSmartDescription({
       purposeAndMotivation: "",
       benefitsAndConsequences: "",
@@ -296,7 +302,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
   };
 
   return (
-    <Card className="max-w-[500px] w-full rounded-2xl">
+    <Card className="max-w-[500px] max-h-[5000px] w-full rounded-2xl overflow-y-auto">
       <CardHeader>
         <CardTitle>Crea un nuevo hábito</CardTitle>
         <CardDescription>
@@ -348,20 +354,38 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
                 </SelectContent>
               </Select>
             </div>
-            <SmartDescriptionSection
+            <div>
+              <Label htmlFor="priority">Prioridad</Label>
+              <Select onValueChange={(value) => setPriority(value as Priority)}>
+                <SelectTrigger id="priority" className="rounded-2xl">
+                  <SelectValue placeholder="Elige una prioridad" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value="Muy alta">Muy alta</SelectItem>
+                  <SelectItem value="Alta">Alta</SelectItem>
+                  <SelectItem value="Media">Media</SelectItem>
+                  <SelectItem value="Baja">Baja</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {/* <SmartDescriptionSection
               smartDescription={smartDescription}
               handleChange={handleChange}
-            />
+            /> */}
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" type="button">
-          Cancelar
-        </Button>
-        <Button type="submit" onClick={handleSubmit}>
-          Crear
-        </Button>
+        <DialogClose>
+          <Button variant="outline" type="button">
+            Cancelar
+          </Button>
+        </DialogClose>
+        <DialogClose>
+          <Button type="submit" onClick={handleSubmit}>
+            Crear
+          </Button>
+        </DialogClose>
       </CardFooter>
     </Card>
   );

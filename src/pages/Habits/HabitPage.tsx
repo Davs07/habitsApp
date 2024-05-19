@@ -10,6 +10,15 @@ import React from "react";
 export const HabitPage = () => {
   const [habit, setHabit] = React.useState<Habit>(habits[1]);
 
+  const handleCheckboxChange = (date: string) => {
+    setHabit({
+      ...habit,
+      completedDays: habit.completedDays?.some((day) => day.date === date)
+        ? habit.completedDays.filter((day) => day.date !== date)
+        : [...(habit.completedDays ?? []), { date, completed: true }],
+    });
+  };
+
   return (
     <div className=" h-full w-max justify-start items-start gap-2 grid grid-cols-1  py-12">
       <div className="flex flex-col gap-6">
@@ -30,7 +39,10 @@ export const HabitPage = () => {
 
         <div className="grid grid-cols-2">
           <div>
-            <Calendario />
+            <Calendario
+              habit={habit}
+              handleCheckboxChange={handleCheckboxChange}
+            />
           </div>
           <div className="grid grid-rows-3 gap-2 text-sm ">
             <div className="grid place-items-center grid-cols-2">

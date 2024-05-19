@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   format,
@@ -11,37 +11,12 @@ import {
 import { es } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-interface CompletedDay {
-  date: string;
-  notes?: string;
-}
-
-interface Habito {
-  id: string;
-  name: string;
-  completedDays: CompletedDay[];
-}
-
-const habitosIniciales: Habito[] = [
-  {
-    id: "1",
-    name: "Hacer ejercicio",
-    completedDays: [
-      { date: "2024-05-13", notes: "Hice 30 minutos de cardio" },
-      { date: "2024-05-15", notes: "Caminé 10,000 pasos" },
-    ],
-  },
-  {
-    id: "2",
-    name: "Leer un libro",
-    completedDays: [{ date: "2024-05-13", notes: "Leí 20 páginas" }],
-  },
-];
+import { habits as habitosIniciales } from "@/api/Habits/Habits";
+import { Habit } from "@/api/habit-types";
 
 export const HabitTry = () => {
   const weekStartsOn = 1; // Lunes como inicio de la semana
-  const [habitos, setHabitos] = useState<Habito[]>(habitosIniciales);
+  const [habitos, setHabitos] = useState<Habit[]>(habitosIniciales);
 
   useEffect(() => {
     console.log(habitos);
@@ -75,11 +50,11 @@ export const HabitTry = () => {
         habito.id === habitoId
           ? {
               ...habito,
-              completedDays: habito.completedDays.some(
+              completedDays: habito.completedDays?.some(
                 (day) => day.date === date
               )
                 ? habito.completedDays.filter((day) => day.date !== date)
-                : [...habito.completedDays, { date }],
+                : [...(habito.completedDays ?? []), { date, completed: true }],
             }
           : habito
       )
@@ -154,25 +129,23 @@ export const HabitTry = () => {
                 <td className="py-3 px-6 text-left whitespace-nowrap">
                   {habito.name}
                 </td>
-                {daysOfCurrentWeek.map(
-                  ({ formattedDate, displayDate, dayNumber }) => {
-                    const isChecked = habito.completedDays.some(
-                      (day) => day.date === formattedDate
-                    );
-                    return (
-                      <td key={formattedDate} className="py-3 px-6 text-center">
-                        <Checkbox
-                          checked={isChecked}
-                          onClick={() =>
-                            handleCheckboxChange(habito.id, formattedDate)
-                          }
-                          className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
-                        />
-                        {/* <span>{`${dayNumber}, ${displayDate}`}</span> */}
-                      </td>
-                    );
-                  }
-                )}
+                {daysOfCurrentWeek.map(({ formattedDate }) => {
+                  const isChecked = habito.completedDays?.some(
+                    (day) => day.date === formattedDate
+                  );
+                  return (
+                    <td key={formattedDate} className="py-3 px-6 text-center">
+                      <Checkbox
+                        checked={isChecked}
+                        onClick={() =>
+                          handleCheckboxChange(habito.id, formattedDate)
+                        }
+                        className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+                      />
+                      {/* <span>{`${dayNumber}, ${displayDate}`}</span> */}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

@@ -99,7 +99,7 @@ export default function Chart() {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="completados" fill="#8884d8" />{" "}
+      <Bar dataKey="completados" fill="#3B82F6" />{" "}
     </BarChart>
   );
 }

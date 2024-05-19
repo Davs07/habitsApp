@@ -26,6 +26,7 @@ export const habits: Habit[] = [
     comments: [
       "Leer diariamente ha mejorado mi enfoque y mi conocimiento en varias áreas.",
     ],
+    priority: "Alta",
     completedDays: [
       {
         date: "2024-02-13",
@@ -85,6 +86,8 @@ export const habits: Habit[] = [
     comments: [
       "Este hábito me ha ayudado a sentirme más preparado y confiado en mi carrera profesional.",
     ],
+    priority: "Baja",
+
     completedDays: [],
   },
   {
@@ -106,6 +109,8 @@ export const habits: Habit[] = [
       possibleObstaclesAndSolutions:
         "La falta de constancia podría ser un problema, así que estableceré recordatorios diarios y empezaré con sesiones cortas.",
     },
+    priority: "Muy alta",
+
     comments: [
       "La meditación diaria ha mejorado mi bienestar emocional y mi capacidad de concentración.",
     ],
@@ -135,6 +140,8 @@ export const habits: Habit[] = [
       possibleObstaclesAndSolutions:
         "La pereza nocturna podría ser un problema, así que dejaré el diario en mi mesita de noche para facilitar el acceso.",
     },
+    priority: "Media",
+
     comments: [
       "El diario de gratitud ha mejorado mi perspectiva y mi felicidad general.",
     ],

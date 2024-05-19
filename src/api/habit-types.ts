@@ -11,6 +11,7 @@ export interface Habit {
   smartDescription: SmartDescription;
   comments: string[];
   completedDays?: CompletedDay[];
+  priority?: Priority | null;
 }
 
 export interface CompletedDay {
@@ -36,14 +37,16 @@ export type Frequency =
   | { type: "DiasEspecificos"; dias: Day[] }
   | { type: "CadaXdías"; veces: number };
 
+export type Priority = "Muy alta" | "Alta" | "Media" | "Baja" | "";
+
 export type Periodo = "Semana" | "Mes" | "Año";
 
 export type Goal =
+  | { type: ""; meta: string }
   | { type: "SiNo"; meta: boolean }
   | { type: "Cantidad"; meta: number }
   | { type: "Cronometro"; meta: number }
   | { type: "Subitems"; meta: string[] };
-
 export function isValidFrequency(frequency: Frequency): boolean {
   switch (frequency.type) {
     case "TodosLosDias":
