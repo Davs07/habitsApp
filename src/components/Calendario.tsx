@@ -10,7 +10,7 @@ export function Calendario() {
       mode="single"
       selected={date}
       onSelect={setDate}
-      className="rounded-md border bg-white grid w-max place-items-center"
+      className="border-none shadow-sm rounded-2xl bg-white grid w-max place-items-center"
       disabled={(date) => date > new Date() || date < new Date("2024-01-01")}
       initialFocus
     />

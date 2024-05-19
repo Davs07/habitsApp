@@ -34,6 +34,177 @@ interface HabitFormProps {
   addHabit: (habit: Habit) => void;
 }
 
+const FormInput: React.FC<{
+  id: string;
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}> = ({ id, label, value, onChange }) => (
+  <div className="flex flex-col space-y-1.5">
+    <Label htmlFor={id}>{label}</Label>
+    <Input
+      id={id}
+      placeholder={label}
+      className="rounded-2xl"
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
+
+const FormTextarea: React.FC<{
+  id: string;
+  label: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+}> = ({ id, label, value, onChange }) => (
+  <div className="flex flex-col space-y-1.5">
+    <Label htmlFor={id}>{label}</Label>
+    <Textarea
+      id={id}
+      placeholder={label}
+      className="rounded-2xl"
+      value={value}
+      onChange={onChange}
+    />
+  </div>
+);
+
+const GoalSection: React.FC<{
+  goalType: Goal["type"];
+  goalMeta: Goal["meta"];
+  setGoalType: (type: Goal["type"]) => void;
+  setGoalMeta: (meta: Goal["meta"]) => void;
+}> = ({ goalType, goalMeta, setGoalType, setGoalMeta }) => (
+  <div>
+    <Label htmlFor="goal">Meta</Label>
+    <div className="grid grid-cols-3 gap-3">
+      <Select
+        value={goalType}
+        onValueChange={(value) => setGoalType(value as Goal["type"])}>
+        <SelectTrigger id="goal" className="rounded-2xl">
+          <SelectValue placeholder="Meta" />
+        </SelectTrigger>
+        <SelectContent position="popper" className="rounded-2xl">
+          <SelectItem value="SiNo">Sí/No</SelectItem>
+          <SelectItem value="Cantidad">Cantidad</SelectItem>
+          <SelectItem value="Cronometro">Cronómetro</SelectItem>
+          <SelectItem value="Subitems">Subitems</SelectItem>
+        </SelectContent>
+      </Select>
+      {goalType === "SiNo" && (
+        <Select onValueChange={(value) => setGoalMeta(value === "true")}>
+          <SelectTrigger className="rounded-2xl">
+            <SelectValue placeholder="" />
+          </SelectTrigger>
+          <SelectContent position="popper" className="rounded-2xl">
+            <SelectItem value="true">Sí</SelectItem>
+            <SelectItem value="false">No</SelectItem>
+          </SelectContent>
+        </Select>
+      )}
+      {(goalType === "Cantidad" || goalType === "Cronometro") && (
+        <Input
+          id="goalMeta"
+          type="number"
+          placeholder="meta"
+          className="rounded-2xl"
+          value={goalMeta as number}
+          onChange={(e) => setGoalMeta(Number(e.target.value))}
+        />
+      )}
+      {goalType === "Subitems" && (
+        <Textarea
+          id="goalMeta"
+          placeholder="Subitems separados por comas"
+          className="rounded-2xl"
+          value={(goalMeta as string[]).join(",")}
+          onChange={(e) => setGoalMeta(e.target.value.split(","))}
+        />
+      )}
+    </div>
+  </div>
+);
+
+const FrequencySection: React.FC<{
+  frequencyType: Frequency["type"];
+  specificDays: Day[];
+  intervalDays: number;
+  setFrequencyType: (type: Frequency["type"]) => void;
+  setSpecificDays: (days: Day[]) => void;
+  setIntervalDays: (days: number) => void;
+}> = ({ frequencyType, intervalDays, setFrequencyType, setIntervalDays }) => {
+  const [specificDays, setSpecificDays] = useState<Day[]>([]);
+
+  const handleCheckboxChange = (day: Day) => {
+    setSpecificDays((prevDays: Day[]) =>
+      prevDays.includes(day)
+        ? prevDays.filter((d) => d !== day)
+        : [...prevDays, day]
+    );
+  };
+
+  return (
+    <div>
+      <Label htmlFor="frequency">Frecuencia</Label>
+      <Tabs
+        value={frequencyType}
+        onValueChange={(value: string) =>
+          setFrequencyType(value as Frequency["type"])
+        }>
+        <TabsList>
+          <TabsTrigger value="TodosLosDias">Todos los días</TabsTrigger>
+          <TabsTrigger value="DiasEspecificos">Días específicos</TabsTrigger>
+          <TabsTrigger value="CadaXdías">Cada x días</TabsTrigger>
+        </TabsList>
+        <TabsContent value="DiasEspecificos">
+          <div className="grid grid-cols-3 gap-3">
+            {Object.values(Day).map((day) => (
+              <div key={day} className="flex items-center space-x-2">
+                <Checkbox
+                  id={day}
+                  checked={specificDays.includes(day)}
+                  onCheckedChange={() => handleCheckboxChange(day)}
+                />
+                <Label htmlFor={day}>{day}</Label>
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="CadaXdías">
+          <Label htmlFor="interval">Intervalo de días</Label>
+          <Input
+            type="number"
+            id="interval"
+            placeholder="Cada cuántos días"
+            value={intervalDays}
+            onChange={(e) => setIntervalDays(Number(e.target.value))}
+          />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+};
+
+const SmartDescriptionSection: React.FC<{
+  smartDescription: SmartDescription;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+}> = ({ smartDescription, handleChange }) => (
+  <>
+    {Object.keys(smartDescription).map((key) => (
+      <FormTextarea
+        key={key}
+        id={key}
+        label={key}
+        value={smartDescription[key as keyof SmartDescription]}
+        onChange={handleChange}
+      />
+    ))}
+  </>
+);
+
 export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -58,44 +229,23 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = e.target;
-    switch (id) {
-      case "name":
-        setName(value);
-        break;
-      case "description":
-        setDescription(value);
-        break;
-      case "goalMeta":
-        setGoalMeta(
-          goalType === "Cantidad" || "Cronometro"
-            ? Number(value)
-            : Boolean(value)
-        );
-        break;
-      case "interval":
-        setIntervalDays(Number(value));
-        break;
-      case "purposeAndMotivation":
-      case "benefitsAndConsequences":
-      case "currentHabitsAndEnvironment":
-      case "capacityAndResources":
-      case "possibleObstaclesAndSolutions":
-        setSmartDescription((prev) => ({
-          ...prev,
-          [id]: value,
-        }));
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleCheckboxChange = (day: Day) => {
-    setSpecificDays((prevDays) =>
-      prevDays.includes(day)
-        ? prevDays.filter((d) => d !== day)
-        : [...prevDays, day]
+    setSmartDescription((prev) =>
+      id === "name" || id === "description"
+        ? { ...prev }
+        : {
+            ...prev,
+            [id]: value,
+          }
     );
+    if (id === "name") setName(value);
+    if (id === "description") setDescription(value);
+    if (id === "goalMeta")
+      setGoalMeta(
+        goalType === "Cantidad" || goalType === "Cronometro"
+          ? Number(value)
+          : value.split(",")
+      );
+    if (id === "interval") setIntervalDays(Number(value));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -123,8 +273,8 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
       comments,
       completedDays,
     };
-    console.log(newHabit);
     addHabit(newHabit);
+    console.log(newHabit);
     // Reset form
     setName("");
     setDescription("");
@@ -156,193 +306,52 @@ export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
       <CardContent>
         <form onSubmit={handleSubmit}>
           <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Nombre</Label>
-              <Input
-                id="name"
-                placeholder="Nombre"
-                className="rounded-2xl"
-                value={name}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="description">Descripción</Label>
-              <Textarea
-                id="description"
-                placeholder="Descripción"
-                className="rounded-2xl"
-                value={description}
-                onChange={handleChange}
-              />
-            </div>
+            <FormInput
+              id="name"
+              label="Nombre"
+              value={name}
+              onChange={handleChange}
+            />
+            <FormTextarea
+              id="description"
+              label="Descripción"
+              value={description}
+              onChange={handleChange}
+            />
+            <GoalSection
+              goalType={goalType}
+              goalMeta={goalMeta}
+              setGoalType={setGoalType}
+              setGoalMeta={setGoalMeta}
+            />
+            <FrequencySection
+              frequencyType={frequencyType}
+              specificDays={specificDays}
+              intervalDays={intervalDays}
+              setFrequencyType={setFrequencyType}
+              setSpecificDays={setSpecificDays}
+              setIntervalDays={setIntervalDays}
+            />
             <div>
-              <Label htmlFor="goal">Meta</Label>
-              <div className="grid grid-cols-3 gap-3">
-                <Select
-                  onValueChange={(value) => setGoalType(value as Goal["type"])}>
-                  <SelectTrigger id="goal" className="rounded-2xl">
-                    <SelectValue placeholder="Meta" />
-                  </SelectTrigger>
-                  <SelectContent position="popper" className="rounded-2xl">
-                    <SelectItem value="SiNo">Sí/No</SelectItem>
-                    <SelectItem value="Cantidad">Cantidad</SelectItem>
-                    <SelectItem value="Cronometro">Cronómetro</SelectItem>
-                    <SelectItem value="Subitems">Subitems</SelectItem>
-                  </SelectContent>
-                </Select>
-                {goalType === "SiNo" && (
-                  <Select
-                    onValueChange={(value) => setGoalMeta(value === "true")}>
-                    <SelectTrigger className="rounded-2xl">
-                      <SelectValue placeholder="Meta" />
-                    </SelectTrigger>
-                    <SelectContent position="popper" className="rounded-2xl">
-                      <SelectItem value="true">Sí</SelectItem>
-                      <SelectItem value="false">No</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-                {(goalType === "Cantidad" || goalType === "Cronometro") && (
-                  <Input
-                    id="goalMeta"
-                    type="number"
-                    placeholder="Meta"
-                    className="rounded-2xl"
-                    value={goalMeta as number}
-                    onChange={handleChange}
-                  />
-                )}
-                {goalType === "Subitems" && (
-                  <Textarea
-                    id="goalMeta"
-                    placeholder="Subitems separados por comas"
-                    className="rounded-2xl"
-                    value={goalMeta.toString()}
-                    onChange={(e) => setGoalMeta(e.target.value.split(","))}
-                  />
-                )}
-              </div>
+              <Label htmlFor="category">Categoría</Label>
+              <Select onValueChange={(value) => setCategory(value as Category)}>
+                <SelectTrigger id="category" className="rounded-2xl">
+                  <SelectValue placeholder="Selecciona una categoría" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value={Category.Salud}>Salud</SelectItem>
+                  <SelectItem value={Category.Bienestar}>Bienestar</SelectItem>
+                  <SelectItem value={Category.Productividad}>
+                    Productividad
+                  </SelectItem>
+                  <SelectItem value={Category.Otro}>Otro</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
-            <div>
-              <Label htmlFor="frequency">Frecuencia</Label>
-              <Tabs
-                value={frequencyType}
-                onValueChange={(value: string) =>
-                  setFrequencyType(value as Frequency["type"])
-                }>
-                <TabsList>
-                  <TabsTrigger value="TodosLosDias">Todos los días</TabsTrigger>
-                  <TabsTrigger value="DiasEspecificos">
-                    Días específicos
-                  </TabsTrigger>
-                  <TabsTrigger value="CadaXdías">Cada x días</TabsTrigger>
-                </TabsList>
-                <TabsContent value="DiasEspecificos">
-                  <div className="grid grid-cols-3 gap-3">
-                    {Object.values(Day).map((day) => (
-                      <div key={day} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={day}
-                          checked={specificDays.includes(day)}
-                          onCheckedChange={() => handleCheckboxChange(day)}
-                        />
-                        <Label htmlFor={day}>{day}</Label>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-                <TabsContent value="CadaXdías">
-                  <Label htmlFor="interval">Intervalo de días</Label>
-                  <Input
-                    type="number"
-                    id="interval"
-                    placeholder="Cada cuántos días"
-                    value={intervalDays}
-                    onChange={handleChange}
-                  />
-                </TabsContent>
-              </Tabs>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <Label htmlFor="category">Categoría</Label>
-                <Select
-                  onValueChange={(value) => setCategory(value as Category)}>
-                  <SelectTrigger id="category" className="rounded-2xl">
-                    <SelectValue placeholder="Selecciona una categoría" />
-                  </SelectTrigger>
-                  <SelectContent position="popper">
-                    <SelectItem value={Category.Salud}>Salud</SelectItem>
-                    <SelectItem value={Category.Bienestar}>
-                      Bienestar
-                    </SelectItem>
-                    <SelectItem value={Category.Productividad}>
-                      Productividad
-                    </SelectItem>
-                    <SelectItem value={Category.Otro}>Otro</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="purposeAndMotivation">
-                Propósito y Motivación
-              </Label>
-              <Textarea
-                id="purposeAndMotivation"
-                placeholder="Propósito y Motivación"
-                className="rounded-2xl"
-                value={smartDescription.purposeAndMotivation}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="benefitsAndConsequences">
-                Beneficios y Consecuencias
-              </Label>
-              <Textarea
-                id="benefitsAndConsequences"
-                placeholder="Beneficios y Consecuencias"
-                className="rounded-2xl"
-                value={smartDescription.benefitsAndConsequences}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="currentHabitsAndEnvironment">
-                Hábitos Actuales y Entorno
-              </Label>
-              <Textarea
-                id="currentHabitsAndEnvironment"
-                placeholder="Hábitos Actuales y Entorno"
-                className="rounded-2xl"
-                value={smartDescription.currentHabitsAndEnvironment}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="capacityAndResources">Capacidad y Recursos</Label>
-              <Textarea
-                id="capacityAndResources"
-                placeholder="Capacidad y Recursos"
-                className="rounded-2xl"
-                value={smartDescription.capacityAndResources}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="possibleObstaclesAndSolutions">
-                Posibles Obstáculos y Soluciones
-              </Label>
-              <Textarea
-                id="possibleObstaclesAndSolutions"
-                placeholder="Posibles Obstáculos y Soluciones"
-                className="rounded-2xl"
-                value={smartDescription.possibleObstaclesAndSolutions}
-                onChange={handleChange}
-              />
-            </div>
+            <SmartDescriptionSection
+              smartDescription={smartDescription}
+              handleChange={handleChange}
+            />
           </div>
         </form>
       </CardContent>
