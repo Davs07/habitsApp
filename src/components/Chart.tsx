@@ -66,7 +66,7 @@ export const Chart: React.FC<ChartProps> = (props) => {
       }}>
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" className="text-xs" />
-      <YAxis />
+      <YAxis  />
       <Tooltip />
       <Legend />
       <Bar dataKey="Completados" fill="#3B82F6" />{" "}

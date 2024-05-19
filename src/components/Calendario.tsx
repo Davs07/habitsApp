@@ -25,7 +25,6 @@ export const Calendario: React.FC<CalendarioProps> = ({
       }}
       onDayClick={(day) => {
         handleCheckboxChange(format(day, "yyyy-MM-dd"));
-        // console.log(format(day, "yyyy-MM-dd"));
       }}
       className="border-none shadow-sm rounded-2xl bg-white grid w-max place-items-center"
       disabled={(date) => date > new Date() || date < new Date("2024-01-01")}
