@@ -47,7 +47,7 @@ export const Chart: React.FC<ChartProps> = (props) => {
   ];
   const data = monthNames.map((month, index) => ({
     name: month,
-    completados: completadosPorMes ? completadosPorMes[index] : 0,
+    Completados: completadosPorMes ? completadosPorMes[index] : 0,
   }));
 
   if (!completedDays) {
@@ -69,7 +69,7 @@ export const Chart: React.FC<ChartProps> = (props) => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey="completados" fill="#3B82F6" />{" "}
+      <Bar dataKey="Completados" fill="#3B82F6" />{" "}
     </BarChart>
   );
 };
