@@ -5,13 +5,15 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React from "react";
 import { Habit } from "@/api/habit-types";
 import { Button } from "@/components/ui/button";
+import { useHabitStore } from "@/store/habitStore";
 
 export const HabitList: React.FC = () => {
-  const [habits, setHabits] = React.useState<Habit[]>(initialHabits);
+  const habits = useHabitStore(state => state.habits);
+  const addHabit = useHabitStore(
+    state => state.habits
+  )
 
-  const addHabit = (newHabit: Habit) => {
-    setHabits((prevHabits) => [...prevHabits, newHabit]);
-  };
+
 
   return (
     <div className=" h-full w-max justify-start items-start gap-2 grid grid-cols-1 mt-32">
@@ -34,7 +36,7 @@ export const HabitList: React.FC = () => {
             <Button>Agregar Hábito</Button>
           </DialogTrigger>
           <DialogContent className="p-0">
-            <HabitForm addHabit={addHabit} />
+            <HabitForm  />
           </DialogContent>
         </Dialog>
       </div>

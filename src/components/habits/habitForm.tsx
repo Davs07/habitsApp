@@ -31,9 +31,9 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { Category, Day } from "@/api/shared-types";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useHabitStore } from "@/store/habitStore";
 
 interface HabitFormProps {
-  addHabit: (habit: Habit) => void;
 }
 
 const FormInput: React.FC<{
@@ -208,7 +208,8 @@ const SmartDescriptionSection: React.FC<{
   </>
 );
 
-export const HabitForm: React.FC<HabitFormProps> = ({ addHabit }) => {
+export const HabitForm: React.FC<HabitFormProps> = () => {
+  const addHabit = useHabitStore((state) => state.addHabit);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [goalType, setGoalType] = useState<Goal["type"]>("");

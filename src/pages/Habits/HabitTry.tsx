@@ -11,16 +11,16 @@ import {
 import { es } from "date-fns/locale";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { habits as habitosIniciales } from "@/api/Habits/Habits";
+import { habits as habitsIniciales } from "@/api/Habits/Habits";
 import { Habit } from "@/api/habit-types";
 
 export const HabitTry = () => {
   const weekStartsOn = 1; // Lunes como inicio de la semana
-  const [habitos, setHabitos] = useState<Habit[]>(habitosIniciales);
+  const [habits, sethabits] = useState<Habit[]>(habitsIniciales);
 
   useEffect(() => {
-    console.log(habitos);
-  }, [habitos]);
+    console.log(habits);
+  }, [habits]);
 
   const getCurrentWeekStart = () => startOfWeek(new Date(), { weekStartsOn });
 
@@ -45,8 +45,8 @@ export const HabitTry = () => {
   };
 
   const handleCheckboxChange = (habitoId: string, date: string) => {
-    setHabitos(
-      habitos.map((habito) =>
+    sethabits(
+      habits.map((habito) =>
         habito.id === habitoId
           ? {
               ...habito,
@@ -122,7 +122,7 @@ export const HabitTry = () => {
             </tr>
           </thead>
           <tbody>
-            {habitos.map((habito) => (
+            {habits.map((habito) => (
               <tr
                 key={habito.id}
                 className="border-b border-gray-200 hover:bg-gray-100">

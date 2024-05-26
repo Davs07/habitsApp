@@ -18,10 +18,12 @@ export interface CompletedDay {
   date: string; // Fecha en formato ISO (yyyy-mm-dd)
   completed: boolean;
   otherDetails?: any; // Cualquier otro detalle o métrica que desees almacenar
-  /* Por ejemplo: otherDetails: {
+  /* Por ejemplo: 
+    otherDetails: {
     duration: 60, // 60 minutos de ejercicio
     type: 'Running'
-  } */
+    } 
+  */
 }
 
 export interface SmartDescription {
