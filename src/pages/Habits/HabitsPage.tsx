@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import { HabitsTabs } from "@/sections/habits/HabitsTabs";
-import React from "react";
 
 export const HabitsPage = () => {
   return (

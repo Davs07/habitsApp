@@ -1,12 +1,11 @@
-import { useParams } from "react-router-dom";
-import React from "react";
-import { useHabitStore } from "@/store/habitStore";
+import { Habit } from "@/api/habit-types";
 import { Calendario } from "@/components/Calendario";
-import { Textarea } from "@/components/ui/textarea";
+import { Chart } from "@/components/Chart";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Chart } from "@/components/Chart";
-import { Habit } from "@/api/habit-types";
+import { Textarea } from "@/components/ui/textarea";
+import { useHabitStore } from "@/store/habitStore";
+import { useParams } from "react-router-dom";
 
 export const HabitPage = () => {
   const { id } = useParams<{ id: string }>();

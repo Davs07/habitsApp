@@ -1,3 +1,12 @@
+import {
+  CompletedDay,
+  Frequency,
+  Goal,
+  Habit,
+  Priority,
+  SmartDescription,
+} from "@/api/habit-types";
+import { Category, Day } from "@/api/shared-types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,22 +25,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { Checkbox } from "../ui/checkbox";
-import React, { useState } from "react";
-import {
-  Habit,
-  CompletedDay,
-  Frequency,
-  Goal,
-  SmartDescription,
-  Priority,
-} from "@/api/habit-types";
-import { v4 as uuidv4 } from "uuid";
-import { Category, Day } from "@/api/shared-types";
-import { DialogClose } from "@radix-ui/react-dialog";
 import { useHabitStore } from "@/store/habitStore";
+import { DialogClose } from "@radix-ui/react-dialog";
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { Checkbox } from "../ui/checkbox";
 
 interface HabitFormProps {
 }
@@ -188,7 +188,7 @@ const FrequencySection: React.FC<{
   );
 };
 
-const SmartDescriptionSection: React.FC<{
+/* const SmartDescriptionSection: React.FC<{
   smartDescription: SmartDescription;
   DialogClose?: React.ReactNode;
   handleChange: (
@@ -206,7 +206,7 @@ const SmartDescriptionSection: React.FC<{
       />
     ))}
   </>
-);
+); */
 
 export const HabitForm: React.FC<HabitFormProps> = () => {
   const addHabit = useHabitStore((state) => state.addHabit);

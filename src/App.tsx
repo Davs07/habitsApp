@@ -1,13 +1,12 @@
+import { ChevronDown, Plus, SquareCheck } from "lucide-react";
 import { Link, Route, Routes } from "react-router-dom";
-import { HabitsPage } from "./pages/Habits/HabitsPage";
-import { Try } from "./pages/Habits/Try";
-import { HabitTry } from "./pages/Habits/HabitTry";
+import { Habit } from "./api/habit-types";
+import { Button } from "./components/ui/button";
 import { HabitList } from "./pages/Habits/HabitList";
 import { HabitPage } from "./pages/Habits/HabitPage";
-import { ChevronDown, Plus, SquareCheck } from "lucide-react";
-import { Button } from "./components/ui/button";
+import { HabitTry } from "./pages/Habits/HabitTry";
+import { HabitsPage } from "./pages/Habits/HabitsPage";
 import { useHabitStore } from "./store/habitStore";
-import { Habit } from "./api/habit-types";
 
 function App() {
   const habits = useHabitStore<Habit[]>((state) => state.habits);
