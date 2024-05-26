@@ -2,6 +2,7 @@ import * as React from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Habit } from "@/api/habit-types";
 import { format, parseISO } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface CalendarioProps {
   habit: Habit;
@@ -25,6 +26,7 @@ export const Calendario: React.FC<CalendarioProps> = ({
   return (
     <Calendar
       mode="multiple"
+      locale={es}
       selected={selectedDates}
       onSelect={(dates) => {
         setSelectedDates(dates || []);
