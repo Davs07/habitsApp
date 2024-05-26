@@ -13,10 +13,12 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { habits as habitsIniciales } from "@/api/Habits/Habits";
 import { Habit } from "@/api/habit-types";
+import { useHabitStore } from "@/store/habitStore";
 
 export const HabitTry = () => {
   const weekStartsOn = 1; // Lunes como inicio de la semana
-  const [habits, sethabits] = useState<Habit[]>(habitsIniciales);
+  const habits = useHabitStore((state) => state.habits);
+  const addCompletedDay = useHabitStore((state) => state.addCompletedDay);
 
   useEffect(() => {
     console.log(habits);
@@ -42,24 +44,7 @@ export const HabitTry = () => {
 
   const capitalize = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  };
-
-  const handleCheckboxChange = (habitoId: string, date: string) => {
-    sethabits(
-      habits.map((habito) =>
-        habito.id === habitoId
-          ? {
-              ...habito,
-              completedDays: habito.completedDays?.some(
-                (day) => day.date === date
-              )
-                ? habito.completedDays.filter((day) => day.date !== date)
-                : [...(habito.completedDays ?? []), { date, completed: true }],
-            }
-          : habito
-      )
-    );
-  };
+  }
 
   const handlePreviousWeek = () => {
     setCurrentWeekStart((prev) => subWeeks(prev, 1));
@@ -122,24 +107,22 @@ export const HabitTry = () => {
             </tr>
           </thead>
           <tbody>
-            {habits.map((habito) => (
+            {habits.map((habit) => (
               <tr
-                key={habito.id}
+                key={habit.id}
                 className="border-b border-gray-200 hover:bg-gray-100">
                 <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {habito.name}
+                  {habit.name}
                 </td>
                 {daysOfCurrentWeek.map(({ formattedDate }) => {
-                  const isChecked = habito.completedDays?.some(
+                  const isChecked = habit.completedDays?.some(
                     (day) => day.date === formattedDate
                   );
                   return (
                     <td key={formattedDate} className="py-3 px-6 text-center">
                       <Checkbox
                         checked={isChecked}
-                        onClick={() =>
-                          handleCheckboxChange(habito.id, formattedDate)
-                        }
+                        onClick={() => addCompletedDay(habit.id, formattedDate)}
                         className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
                       />
                       {/* <span>{`${dayNumber}, ${displayDate}`}</span> */}
