@@ -1,56 +1,59 @@
-import { habits } from "@/api/Habits/Habits";
-import { Habit } from "@/api/habit-types";
+import { useParams } from "react-router-dom";
+import React from "react";
+import { useHabitStore } from "@/store/habitStore";
 import { Calendario } from "@/components/Calendario";
-import { Chart } from "@/components/Chart";
+import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import React from "react";
+import { Chart } from "@/components/Chart";
+import { Habit } from "@/api/habit-types";
 
 export const HabitPage = () => {
-  const [habit, setHabit] = React.useState<Habit>(habits[0]);
+  const { id } = useParams<{ id: string }>();
 
-  React.useEffect(() => {
-    setHabit(habit);
+  const habit = useHabitStore<Habit>((state) => {
+    const foundHabit = state.habits.find((habit) => habit.id === id);
+    if (!foundHabit) {
+      throw new Error(`Hábito con el id ${id} no encontrado`);
+    }
+    return foundHabit;
   });
+  const updateHabit = useHabitStore((state) => state.updateHabit);
 
   const handleCheckboxChange = (date: string) => {
-    /* 
-     setHabit({
-      ...habit,
-      completedDays: habit.completedDays?.some((day) => day.date === date)
-        ? habit.completedDays.filter((day) => day.date !== date)
-        : [...(habit.completedDays ?? []), { date, completed: true }],
-    });
-    */
-    setHabit((prevHabit) => ({
-      ...prevHabit,
-      completedDays: prevHabit.completedDays?.some((day) => day.date === date)
-        ? prevHabit.completedDays.filter((day) => day.date !== date)
-        : [...(prevHabit.completedDays ?? []), { date, completed: true }],
-    }));
-    console.log(date);
-    console.log(habit.completedDays);
+    const newCompletedDays = habit?.completedDays?.some(
+      (day) => day.date === date
+    )
+      ? habit.completedDays.filter((day) => day.date !== date)
+      : [...(habit.completedDays ?? []), { date, completed: true }];
+
+    if (id !== undefined && habit) {
+      updateHabit(id, { completedDays: newCompletedDays });
+    } else {
+      return;
+    }
   };
 
+  if (!habit) {
+    return <div>Hábito no encontrado</div>;
+  }
+
   return (
-    <div className=" h-full w-max max-w-[700px] justify-start items-start gap-12 col-span-6  grid grid-cols-1 py-12">
+    <div className="h-full w-max max-w-[700px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12">
       <div className="flex flex-col gap-6">
         <div className="flex w-full justify-center">
           <h2>{habit.name}</h2>
         </div>
         <h3>Información</h3>
-
         <div className="flex flex-col space-y-1.5">
           <h4>Descripción</h4>
           <Textarea
             id="description"
             placeholder="Descripción"
-            className="rounded-2xl bg-white border-none"
-            defaultValue={habit.description}
+            className="rounded-2xl bg-white border-none resize-none"
+            value={habit.description}
           />
         </div>
-
         <div className="grid grid-cols-2">
           <div>
             <h4>Calendario</h4>
@@ -105,7 +108,6 @@ export const HabitPage = () => {
         <div>
           <div>
             <h4>Racha</h4>
-
             <div className="text-blue-500 flex justify-around items-center bg-white p-8 rounded-2xl">
               <div>
                 <p>Actual</p>
@@ -119,11 +121,10 @@ export const HabitPage = () => {
           </div>
           <div>
             <h4>Veces</h4>
-
             <div className="text-blue-500 grid grid-cols-3 justify-between bg-white p-8 rounded-2xl">
               <div className="flex flex-col justify-between items-center">
                 <p>Esta semana</p>
-                <Label>0 días</Label>
+                <Label>{habit.completedDays?.length}</Label>
               </div>
               <div className="flex flex-col justify-between items-center">
                 <p>Esta mes</p>

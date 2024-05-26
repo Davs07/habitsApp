@@ -6,8 +6,12 @@ import { HabitList } from "./pages/Habits/HabitList";
 import { HabitPage } from "./pages/Habits/HabitPage";
 import { ChevronDown, Plus, SquareCheck } from "lucide-react";
 import { Button } from "./components/ui/button";
+import { useHabitStore } from "./store/habitStore";
+import { Habit } from "./api/habit-types";
 
 function App() {
+  const habits = useHabitStore<Habit[]>((state) => state.habits);
+
   return (
     <div className="h-screen overflow-hidden flex flex-row   bg-background ">
       <aside className=" col-span-2 bg-card h-full w-[280px] justify-start p-4">
@@ -35,16 +39,23 @@ function App() {
                   </Button>
                 </Link>
               </li>
-              <li>
-                <Link to="/habitpage">
-                  <Button
-                    variant={"ghost"}
-                    className="w-full justify-start gap-2 font-normal">
-                    <SquareCheck strokeWidth={1} height={15} />
-                    Lectura diaria
-                  </Button>
-                </Link>
-              </li>
+             
+              {
+                habits.map(
+                  (habit) => (
+                    <li key={habit.id}>
+                      <Link to={`/habit/${habit.id}`}>
+                        <Button
+                          variant={"ghost"}
+                          className="w-full justify-start gap-2 font-normal">
+                          <SquareCheck strokeWidth={1} height={15} />
+                          {habit.name}
+                        </Button>
+                      </Link>
+                    </li>
+                  )
+                )
+              }
             </ul>
           </nav>
         </div>
@@ -52,10 +63,9 @@ function App() {
       <div className="w-full flex-1 flex justify-center overflow-y-auto ">
         <Routes>
           <Route path="/" element={<HabitsPage />} />
-          <Route path="/try" element={<Try />} />
           <Route path="/habittry" element={<HabitTry />} />
           <Route path="/habitlist" element={<HabitList />} />
-          <Route path="/habitpage" element={<HabitPage />} />
+          <Route path="/habit/:id" element={<HabitPage />} />
         </Routes>
       </div>
     </div>

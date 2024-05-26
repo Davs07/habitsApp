@@ -7,14 +7,20 @@ interface CalendarioProps {
   habit: Habit;
   handleCheckboxChange: (date: string) => void;
 }
+
 export const Calendario: React.FC<CalendarioProps> = ({
   habit,
   handleCheckboxChange,
-}) => {
-  // const { habit, handleCheckboxChange } = props;
+}: CalendarioProps) => {
   const [selectedDates, setSelectedDates] = React.useState<Date[]>(
     habit.completedDays?.map((day) => parseISO(day.date)) || []
   );
+
+  React.useEffect(() => {
+    setSelectedDates(
+      habit.completedDays?.map((day) => parseISO(day.date)) || []
+    );
+  }, [habit]); // Actualizar cuando el habit cambie
 
   return (
     <Calendar
@@ -31,20 +37,3 @@ export const Calendario: React.FC<CalendarioProps> = ({
     />
   );
 };
-
-// Maneja la selección de fechas
-/*  const handleSelect = (dates: Date | Date[] | undefined) => {
-    if (dates === undefined) {
-      setSelectedDates([]);
-    } else if (Array.isArray(dates)) {
-      setSelectedDates((prevDates) => [
-        ...prevDates,
-        ...dates.filter((date) => !prevDates.includes(date)),
-      ]);
-    } else {
-      setSelectedDates((prevDates) =>
-        prevDates.includes(dates) ? prevDates : [...prevDates, dates]
-      );
-    }
-    console.log("Selected Dates:", selectedDates);
-  }; */
