@@ -36,7 +36,7 @@
 
     /* Nuevos colores */
     --main: 232 91% 55%;
-    --main-foreground: 0 0% 20%;
+    --main-foreground: 0 0% 100%;
   }
 
   .dark {
@@ -70,7 +70,7 @@
 
     /* Nuevos colores */
     --main: 232 91% 55%;
-    --main-foreground: 0 0% 20%;
+    --main-foreground: 0 0% 100%;
   }
 }
 

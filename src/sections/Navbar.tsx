@@ -13,8 +13,8 @@ export const Navbar = () => {
     <aside className="col-span-2 bg-card h-full w-[280px] justify-start p-4">
       <div className="w-full h-full">
         <nav>
-          <ul className="flex flex-col gap-1">
-            <Button variant="outline" className="mb-2">
+          <ul className="flex flex-col gap-1 ">
+            <Button variant="outline" className="mb-2 hover:text-main">
               <Plus />
               Crear hábito
             </Button>
@@ -22,8 +22,10 @@ export const Navbar = () => {
               <Link to="/habittry">
                 <Button
                   variant={"ghost"}
-                  className={`w-full justify-start ${
-                    location.pathname === "/habittry" ? "bg-secondary" : ""
+                  className={`w-full justify-start hover:text-main ${
+                    location.pathname === "/habittry"
+                      ? "bg-secondary text-main"
+                      : ""
                   }`}>
                   Pendiente
                 </Button>
@@ -33,8 +35,10 @@ export const Navbar = () => {
               <Link to="/habitlist">
                 <Button
                   variant={"ghost"}
-                  className={`w-full justify-between font-bold ${
-                    location.pathname === "/habitlist" ? "bg-secondary" : ""
+                  className={`w-full justify-between font-bold hover:text-main ${
+                    location.pathname === "/habitlist"
+                      ? "bg-secondary text-main"
+                      : ""
                   }`}>
                   Hábitos
                   <ChevronDown />
@@ -47,9 +51,9 @@ export const Navbar = () => {
                 <Link to={`/habit/${habit.id}`}>
                   <Button
                     variant={"ghost"}
-                    className={`w-full justify-start gap-2 font-normal ${
+                    className={`w-full justify-start gap-2 font-normal hover:text-main ${
                       location.pathname === `/habit/${habit.id}`
-                        ? "bg-secondary"
+                        ? "bg-secondary text-main"
                         : ""
                     }`}>
                     <SquareCheck strokeWidth={1} height={15} />

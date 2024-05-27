@@ -1,28 +1,40 @@
-import { useEffect, useState } from "react";
+import { Habit } from "@/api/habit-types";
+import { Greeting } from "@/components/Greeting";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useHabitStore } from "@/store/habitStore";
 import {
-  format,
   addDays,
-  startOfWeek,
-  endOfWeek,
-  subWeeks,
   addWeeks,
+  endOfWeek,
+  format,
+  startOfWeek,
+  subWeeks
 } from "date-fns";
 import { es } from "date-fns/locale";
-import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { habits as habitsIniciales } from "@/api/Habits/Habits";
-import { Habit } from "@/api/habit-types";
-import { useHabitStore } from "@/store/habitStore";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const HabitTry = () => {
-  const weekStartsOn = 1; // Lunes como inicio de la semana
-  const habits = useHabitStore((state) => state.habits);
+  const habits = useHabitStore<Habit[]>((state) => state.habits);
   const addCompletedDay = useHabitStore((state) => state.addCompletedDay);
 
-  useEffect(() => {
-    console.log(habits);
-  }, [habits]);
+  const navigate = useNavigate();
+
+  const weekStartsOn = 1; // Lunes como inicio de la semana
+
+  const user = {
+    name: "John Doe",
+    email: "email",
+    avatar: "avatar",
+    id: "id",
+  };
+
+  const handleRedirect = (id: string) => {
+    navigate(`/habit/${id}`);
+  };
 
   const getCurrentWeekStart = () => startOfWeek(new Date(), { weekStartsOn });
 
@@ -44,7 +56,7 @@ export const HabitTry = () => {
 
   const capitalize = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-  }
+  };
 
   const handlePreviousWeek = () => {
     setCurrentWeekStart((prev) => subWeeks(prev, 1));
@@ -60,7 +72,7 @@ export const HabitTry = () => {
 
   return (
     <div className="flex flex-col items-center h-full w-max justify-start">
-      <h1 className="mb-4">Checkbox Test</h1>
+      <Greeting user={user} />
 
       <div className="flex w-full mb-4 justify-between">
         <div className="flex space-x-2 justify-center items-center">
@@ -94,45 +106,40 @@ export const HabitTry = () => {
         </div>
       </div>
 
-      <div>
-        <table>
-          <thead>
-            <tr className="text-gray-600 uppercase text-sm leading-normal">
-              <th className="py-3 px-6 text-left">Hábito</th>
-              {daysOfCurrentWeek.map(({ formattedDate, dayName }) => (
-                <th key={formattedDate} className="py-3 px-6 text-center">
-                  {`${dayName}`}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {habits.map((habit) => (
-              <tr
-                key={habit.id}
-                className="border-b border-gray-200 hover:bg-gray-100">
-                <td className="py-3 px-6 text-left whitespace-nowrap">
-                  {habit.name}
-                </td>
-                {daysOfCurrentWeek.map(({ formattedDate }) => {
-                  const isChecked = habit.completedDays?.some(
-                    (day) => day.date === formattedDate
-                  );
-                  return (
-                    <td key={formattedDate} className="py-3 px-6 text-center">
-                      <Checkbox
-                        checked={isChecked}
-                        onClick={() => addCompletedDay(habit.id, formattedDate)}
-                        className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
-                      />
-                      {/* <span>{`${dayNumber}, ${displayDate}`}</span> */}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <Card className="text-gray-600 bg-transparent shadow-none font-bold uppercase text-sm leading-normal grid grid-cols-8 w-full">
+        <div className="py-3 px-6 text-left">Hábito</div>
+        {daysOfCurrentWeek.map(({ formattedDate, dayName }) => (
+          <div key={formattedDate} className="py-3 px-6 text-center">
+            {`${dayName}`}
+          </div>
+        ))}
+      </Card>
+      <div className="w-full flex flex-col gap-6">
+        {habits.map((habit) => (
+          <Card
+            key={habit.id}
+            className="text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  ">
+            <div
+              onClick={() => handleRedirect(habit.id)}
+              className="py-3 px-6 text-left whitespace-nowrap cursor-pointer">
+              {habit.name}
+            </div>
+            {daysOfCurrentWeek.map(({ formattedDate }) => {
+              const isChecked = habit.completedDays?.some(
+                (day) => day.date === formattedDate
+              );
+              return (
+                <div key={formattedDate} className="py-3 px-6 text-center">
+                  <Checkbox
+                    checked={isChecked}
+                    onClick={() => addCompletedDay(habit.id, formattedDate)}
+                    className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+                  />
+                </div>
+              );
+            })}
+          </Card>
+        ))}
       </div>
     </div>
   );

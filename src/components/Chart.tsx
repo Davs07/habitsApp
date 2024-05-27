@@ -60,7 +60,7 @@ export const Chart: React.FC<ChartProps> = ({ habit, completedDays }) => {
   }
 
   return (
-    <div className="w-full h-max bg-white  rounded-2xl py-6 ">
+    <div className="w-full h-max bg-card  rounded-2xl py-6 ">
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={data}
