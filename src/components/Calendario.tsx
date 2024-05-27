@@ -24,7 +24,7 @@ export const Calendario: React.FC<CalendarioProps> = ({
   }, [habit]); // Actualizar cuando el habit cambie
 
   return (
-    <div className="w-full h-full bg-card shadow-sm rounded-2xl grid place-items-center">
+    <div className="w-full h-full bg-card shadow-sm rounded-2xl py-6 grid place-items-center">
       <Calendar
         mode="multiple"
         locale={es}

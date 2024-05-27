@@ -15,15 +15,15 @@ export const HabitCardComponent = ({
   habit,
   daysOfCurrentWeek,
   handleRedirect,
-  addCompletedDay
+  addCompletedDay,
 }: HabitCardComponentProps) => {
   return (
     <Card
       key={habit.id}
-      className="text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  ">
+      className="text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center bg-transparent border hover:bg-card  ">
       <div
         onClick={() => handleRedirect(habit.id)}
-        className="py-3 px-6 text-left whitespace-nowrap cursor-pointer">
+        className="py-3 px-6 w-full  whitespace-nowrap cursor-pointer text-start">
         {habit.name}
       </div>
       {daysOfCurrentWeek.map(({ formattedDate }) => {
@@ -35,7 +35,7 @@ export const HabitCardComponent = ({
             <Checkbox
               checked={isChecked}
               onClick={() => addCompletedDay(habit.id, formattedDate)}
-              className="form-checkbox h-5 w-5 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+              className="form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
             />
           </div>
         );

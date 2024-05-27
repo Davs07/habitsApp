@@ -79,7 +79,7 @@ export function Streak({ habit }: StatsHabitProps) {
 
   // Renderiza las estadísticas de racha
   return (
-    <div className="flex flex-col gap-3 items-center text-start ">
+    <div className="flex flex-col gap-6 items-center text-start ">
       <h4 className="w-full">Racha</h4>
       <div className=" w-full text-sm  grid grid-cols-2 grid-rows-1 gap-8 justify-between  sm:px-8 rounded-2xl">
         <Card className="w-full h-32 grid place-items-center px-0 py-8 ">
@@ -111,7 +111,7 @@ export const Times = ({ habit }: StatsHabitProps) => {
 
   // Renderiza los tiempos de completitud
   return (
-    <div className="flex flex-col gap-3 items-center text-start ">
+    <div className="flex flex-col gap-6 items-center text-start ">
       <h4 className=" w-full">Veces</h4>
       <div className=" w-full text-sm  grid grid-rows-1 grid-cols-3  gap-8 justify-between  sm:px-8 rounded-2xl">
         <Card className="w-full h-32 grid place-items-center px-0 py-8 ">

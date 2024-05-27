@@ -34,7 +34,9 @@ export const Greeting = ({ user }: GreetingProps) => {
       <h1 className="">
         {greeting}, {user.name}
       </h1>
-      <h4>Hoy es una nueva oportunidad para mejorar.</h4>
+      <h4 className="text-foreground">
+        Hoy es una nueva oportunidad para mejorar.
+      </h4>
     </div>
   );
 };

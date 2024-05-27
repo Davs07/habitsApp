@@ -44,7 +44,7 @@ export const HabitPage = () => {
 
   return (
     <div className="h-full w-full max-w-[900px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12 px-2 ">
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-12">
         <div className="flex w-full justify-center">
           {editMode ? (
             <h2
@@ -75,7 +75,7 @@ export const HabitPage = () => {
           )}
         </div>
         <h3>Información</h3>
-        <div className="flex flex-col space-y-1.5">
+        <div className="flex flex-col gap-8">
           <h4>Descripción</h4>
           <div className="w-full sm:px-8">
             <Textarea
@@ -92,7 +92,7 @@ export const HabitPage = () => {
           </div>
         </div>
         <div className="grid grid-rows-0 sm:grid-cols-2 gap-8  ">
-          <div>
+          <div className="flex flex-col gap-6">
             <h4>Calendario</h4>
             <div className="w-full h-full grid place-items-center  sm:pl-8">
               <Calendario
@@ -101,12 +101,14 @@ export const HabitPage = () => {
               />
             </div>
           </div>
-          <div className="">
+          <div className="flex flex-col gap-6">
             <h4>Detalles</h4>
             <div className="w-full h-full sm:pr-8">
-              <div className="grid grid-rows-3 gap-2 text-sm bg-white rounded-2xl h-full ">
-                <div className="grid place-items-center grid-cols-2">
-                  <Label>Frecuencia</Label>
+              <div className="grid grid-rows-4 gap-8 text-sm   h-full ">
+                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
+                  <div className="w-full text-left ml-12">
+                    <Label>Frecuencia</Label>
+                  </div>
                   <div className="flex flex-col p-2 w-full justify-center gap-2">
                     <p>{habit.frequency.type}</p>
                     <Card className="flex p-2 w-full justify-center">
@@ -117,39 +119,45 @@ export const HabitPage = () => {
                       ) : null}
                     </Card>
                   </div>
-                </div>
-                <div className="grid place-items-center grid-cols-2">
-                  <Label>Meta</Label>
-                  <div className="flex  flex-col p-2 w-full justify-center gap-2">
+                </Card>
+                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
+                  <div className="w-full text-left ml-12">
+                    <Label>Meta</Label>
+                  </div>
+                  <div className="flex  flex-col p-2 w-full justify-center gap-2 ">
                     <p>{habit.goal.type}:</p>
                     <Card>
                       <p>{habit.goal.meta} min</p>
                     </Card>
                   </div>
-                </div>
-                <div className="grid place-items-center grid-cols-2">
-                  <Label>Categoría</Label>
+                </Card>
+                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
+                  <div className="w-full text-left ml-12">
+                    <Label>Categoría</Label>
+                  </div>
                   <Card className="flex p-2 w-full justify-center">
                     <p>{habit.category}</p>
                   </Card>
-                </div>
-                <div className="grid place-items-center grid-cols-2">
-                  <Label>Prioridad</Label>
+                </Card>
+                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
+                  <div className="w-full text-left ml-12">
+                    <Label>Prioridad</Label>
+                  </div>
                   <Card className="flex p-2 w-full justify-center">
                     <p>Alta</p>
                   </Card>
-                </div>
+                </Card>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-6 ">
-        <h3>Estadísticas</h3>
-        <div className="flex w-full flex-col gap-4 ">
+      <div className="flex flex-col gap-12 ">
+        <h3 className="mb-2">Estadísticas</h3>
+        <div className="flex w-full flex-col gap-8 ">
           <Streak habit={habit} />
           <Times habit={habit} />
-          <div className="flex flex-col gap-3 w-full ">
+          <div className="flex flex-col gap-6 w-full ">
             <h4>Mes</h4>
             <div className=" w-full sm:px-8 mb-8">
               <Chart habit={habit} completedDays={habit.completedDays} />

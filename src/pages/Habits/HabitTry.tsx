@@ -1,6 +1,6 @@
 import { Habit } from "@/api/habit-types";
 import { Greeting } from "@/components/Greeting";
-import { NavigationWeeks } from "@/components/NavWeeks";
+import { NavigationWeeks } from "@/sections/pending/NavWeeks";
 import { HabitCardComponent } from "@/sections/pending/HabitCardComponent";
 import { HabitHeaderComponent } from "@/sections/pending/HabitHeaderComponent";
 import { useHabitStore } from "@/store/habitStore";
@@ -70,7 +70,7 @@ export const HabitTry = () => {
   };
 
   return (
-    <div className="flex flex-col items-center h-full w-max justify-start">
+    <div className="flex flex-col items-center h-full w-max justify-start gap-8">
       <Greeting user={user} />
 
       {/* NavigationWeeks */}

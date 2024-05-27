@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router-dom";
 import { HabitList } from "./pages/Habits/HabitList";
 import { HabitPage } from "./pages/Habits/HabitPage";
 import { HabitTry } from "./pages/Habits/HabitTry";
-import { HabitsPage } from "./pages/Habits/HabitsPage";
 import { Navbar } from "./sections/Navbar";
 
 function App() {
@@ -11,8 +10,7 @@ function App() {
       <Navbar />
       <div className="w-full flex-1 flex justify-center overflow-y-auto max-w-screen overflow-x-hidden ">
         <Routes>
-          <Route path="/" element={<HabitsPage />} />
-          <Route path="/habittry" element={<HabitTry />} />
+          <Route path="" element={<HabitTry />} />
           <Route path="/habitlist" element={<HabitList />} />
           <Route path="/habit/:id" element={<HabitPage />} />
         </Routes>

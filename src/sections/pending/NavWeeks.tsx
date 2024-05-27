@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface NavigationWeeksProps {
   handlePreviousWeek: () => void;
@@ -26,21 +28,24 @@ export const NavigationWeeks = ({
         <Button
           onClick={handlePreviousWeek}
           size={"icon"}
-          className=" bg-gray-200 text-black hover:text-white rounded-3xl">
+          className=" bg-gray-200 text-black hover:text-white rounded-2xl">
           <ChevronLeft />
         </Button>
         <Button
           onClick={handleCurrentWeek}
-          className="px-4 py-2 bg-gray-200 text-black hover:text-white rounded-3xl">
+          className={cn(
+            "px-4 py-2 bg-gray-200 text-black hover:text-white  rounded-2xl"
+          )}>
           Semana Actual
         </Button>
         <Button
           onClick={handleNextWeek}
           size={"icon"}
-          className=" bg-gray-200 text-black hover:text-white rounded-3xl">
+          className=" bg-gray-200 text-black hover:text-white rounded-2xl">
           <ChevronRight />
         </Button>
       </div>
+
       <div>
         <h3 className="mb-2">
           {capitalize(format(currentWeekStart, "EEEE", { locale: es }))},{" "}

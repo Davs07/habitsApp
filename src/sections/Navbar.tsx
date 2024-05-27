@@ -19,13 +19,11 @@ export const Navbar = () => {
               Crear hábito
             </Button>
             <li>
-              <Link to="/habittry">
+              <Link to="">
                 <Button
                   variant={"ghost"}
                   className={`w-full justify-start hover:text-main ${
-                    location.pathname === "/habittry"
-                      ? "bg-secondary text-main"
-                      : ""
+                    location.pathname === "/" ? "bg-secondary text-main" : ""
                   }`}>
                   Pendiente
                 </Button>
