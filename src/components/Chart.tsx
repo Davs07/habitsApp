@@ -9,23 +9,26 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer,
 } from "recharts";
+import { useMediaQuery } from "@uidotdev/usehooks";
 
 interface CompletadosPorMes {
-  [key: string]: number; // Asumiendo que queremos contar los completados, usamos number
+  [key: string]: number;
 }
+
 interface ChartProps {
   habit: Habit;
   completedDays: CompletedDay[] | undefined;
 }
 
-export const Chart: React.FC<ChartProps> = (props) => {
-  const { habit, completedDays } = props;
+export const Chart: React.FC<ChartProps> = ({ habit, completedDays }) => {
+  const isLargeScreen = useMediaQuery("(min-width: 768px)");
 
   const completadosPorMes = habit.completedDays?.reduce<CompletadosPorMes>(
     (acc, day) => {
-      const month = parseISO(day.date).getMonth(); // Extraer el mes correctamente
-      acc[month] = (acc[month] || 0) + 1; // Incrementa el contador para el mes
+      const month = parseISO(day.date).getMonth();
+      acc[month] = (acc[month] || 0) + 1;
       return acc;
     },
     {}
@@ -53,23 +56,31 @@ export const Chart: React.FC<ChartProps> = (props) => {
   if (!completedDays) {
     return null;
   }
+
   return (
-    <BarChart
-      width={700}
-      height={300}
-      data={data}
-      margin={{
-        top: 5,
-        right: 30,
-        left: 20,
-        bottom: 5,
-      }}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" className="text-xs" />
-      <YAxis  />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="Completados" fill="#3B82F6" />{" "}
-    </BarChart>
+    <ResponsiveContainer width="100%" height={300}>
+      <BarChart
+        data={data}
+        margin={{
+          top: 5,
+          right: isLargeScreen ? 30 : 10,
+          left: isLargeScreen ? -20 : -15,
+          bottom: 5,
+        }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis
+          dataKey="name"
+          tick={{ fontSize: 13 }}
+          angle={isLargeScreen ? 0 : 270}
+          textAnchor={isLargeScreen ? "middle" : "end"}
+          tickMargin={isLargeScreen ? 10 : 0}
+          orientation="bottom"
+        />
+        <YAxis tick={{ fontSize: 13 }} />
+        <Tooltip contentStyle={{ fontSize: "12px" }} />
+        <Legend wrapperStyle={{ fontSize: "14px" }} />
+        <Bar dataKey="Completados" fill="#3B82F6" />
+      </BarChart>
+    </ResponsiveContainer>
   );
 };
