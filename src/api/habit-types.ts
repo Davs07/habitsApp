@@ -22,7 +22,7 @@ export interface CompletedDay {
     otherDetails: {
     duration: 60, // 60 minutos de ejercicio
     type: 'Running'
-    } 
+  } 
   */
 }
 

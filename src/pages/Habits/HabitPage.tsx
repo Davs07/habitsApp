@@ -4,6 +4,7 @@ import { Chart } from "@/components/Chart";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Times, Streak } from "@/sections/habit/statsHabit";
 import { useHabitStore } from "@/store/habitStore";
 import { useParams } from "react-router-dom";
 
@@ -62,7 +63,7 @@ export const HabitPage = () => {
             />
           </div>
           <div className="">
-            <h4>Datos</h4>
+            <h4>Detalles</h4>
             <div className="grid grid-rows-3 gap-2 text-sm bg-white rounded-2xl h-full">
               <div className="grid place-items-center grid-cols-2">
                 <Label>Frecuencia</Label>
@@ -104,43 +105,15 @@ export const HabitPage = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h3>Estadísticas</h3>
-        <div>
-          <div>
-            <h4>Racha</h4>
-            <div className="text-blue-500 flex justify-around items-center bg-white p-8 rounded-2xl">
-              <div>
-                <p>Actual</p>
-                <Label>0 días</Label>
+        <div className="flex w-full flex-col gap-4">
+          <Streak habit={habit} />
+          <Times habit={habit} />
+          <div className="flex flex-col gap-3 ">
+            <h4>Mes</h4>
+            <div>
+              <div className="bg-white py-8 rounded-2xl">
+                <Chart habit={habit} completedDays={habit.completedDays} />
               </div>
-              <div>
-                <p>Mejor</p>
-                <Label>0 días</Label>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4>Veces</h4>
-            <div className="text-blue-500 grid grid-cols-3 justify-between bg-white p-8 rounded-2xl">
-              <div className="flex flex-col justify-between items-center">
-                <p>Esta semana</p>
-                <Label>{habit.completedDays?.length}</Label>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p>Esta mes</p>
-                <Label>7 días</Label>
-              </div>
-              <div className="flex flex-col justify-between items-center">
-                <p>Esta año</p>
-                <Label>12 días</Label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <h4>Mes</h4>
-          <div>
-            <div className="bg-white py-8 rounded-2xl">
-              <Chart habit={habit} completedDays={habit.completedDays} />
             </div>
           </div>
         </div>
