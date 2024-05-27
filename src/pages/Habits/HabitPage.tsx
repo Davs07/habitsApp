@@ -39,7 +39,7 @@ export const HabitPage = () => {
   }
 
   return (
-    <div className="h-full w-full max-w-[700px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12 px-2">
+    <div className="h-full w-full max-w-[700px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12 px-2 ">
       <div className="flex flex-col gap-6">
         <div className="flex w-full justify-center">
           <h2>{habit.name}</h2>
@@ -103,14 +103,14 @@ export const HabitPage = () => {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6 ">
         <h3>Estadísticas</h3>
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex w-full flex-col gap-4 ">
           <Streak habit={habit} />
           <Times habit={habit} />
-          <div className="flex flex-col gap-3 ">
+          <div className="flex flex-col gap-3 w-full ">
             <h4>Mes</h4>
-            <div className="bg-white py-8 rounded-2xl w-full">
+            <div className=" w-full sm:px-8 mb-8">
               <Chart habit={habit} completedDays={habit.completedDays} />
             </div>
           </div>

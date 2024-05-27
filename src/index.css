@@ -33,6 +33,10 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Nuevos colores */
+    --main: 232 91% 55%;
+    --main-foreground: 0 0% 20%;
   }
 
   .dark {
@@ -63,6 +67,10 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+
+    /* Nuevos colores */
+    --main: 232 91% 55%;
+    --main-foreground: 0 0% 20%;
   }
 }
 

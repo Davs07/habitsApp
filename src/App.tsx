@@ -8,7 +8,7 @@ import { Navbar } from "./sections/Navbar";
 function App() {
   return (
     <div className="h-screen overflow-hidden flex flex-row   bg-background ">
-      {/* <Navbar /> */}
+      <Navbar />
       <div className="w-full flex-1 flex justify-center overflow-y-auto max-w-screen overflow-x-hidden ">
         <Routes>
           <Route path="/" element={<HabitsPage />} />

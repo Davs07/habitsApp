@@ -13,6 +13,8 @@ import {
 } from "recharts";
 import { useMediaQuery } from "@uidotdev/usehooks";
 
+import "@/index.css";
+
 interface CompletadosPorMes {
   [key: string]: number;
 }
@@ -58,29 +60,34 @@ export const Chart: React.FC<ChartProps> = ({ habit, completedDays }) => {
   }
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart
-        data={data}
-        margin={{
-          top: 5,
-          right: isLargeScreen ? 30 : 10,
-          left: isLargeScreen ? -20 : -15,
-          bottom: 5,
-        }}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="name"
-          tick={{ fontSize: 13 }}
-          angle={isLargeScreen ? 0 : 270}
-          textAnchor={isLargeScreen ? "middle" : "end"}
-          tickMargin={isLargeScreen ? 10 : 0}
-          orientation="bottom"
-        />
-        <YAxis tick={{ fontSize: 13 }} />
-        <Tooltip contentStyle={{ fontSize: "12px" }} />
-        <Legend wrapperStyle={{ fontSize: "14px" }} />
-        <Bar dataKey="Completados" fill="#3B82F6" />
-      </BarChart>
-    </ResponsiveContainer>
+    <div className="w-full h-max bg-white  rounded-2xl py-6 ">
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={data}
+          margin={{
+            top: 5,
+            right: isLargeScreen ? 30 : 10,
+            left: isLargeScreen ? -20 : -15,
+            bottom: 5,
+          }}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="name"
+            tick={{ fontSize: 13 }}
+            angle={isLargeScreen ? 0 : 270}
+            textAnchor={isLargeScreen ? "middle" : "end"}
+            tickMargin={isLargeScreen ? 10 : 0}
+            orientation="bottom"
+          />
+          <YAxis tick={{ fontSize: 13 }} />
+          <Tooltip contentStyle={{ fontSize: "16px" }} />
+          <Legend wrapperStyle={{ fontSize: "14px" }} />
+          <Bar
+            dataKey="Completados"
+            fill="hsl(var(--main))"
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 };
