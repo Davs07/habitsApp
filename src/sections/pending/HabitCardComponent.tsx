@@ -17,6 +17,8 @@ export const HabitCardComponent = ({
   handleRedirect,
   addCompletedDay,
 }: HabitCardComponentProps) => {
+
+    
   return (
     <Card
       key={habit.id}

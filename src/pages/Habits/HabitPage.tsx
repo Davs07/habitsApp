@@ -1,11 +1,10 @@
 import { Habit } from "@/api/habit-types";
 import { Calendario } from "@/components/Calendario";
 import { Chart } from "@/components/Chart";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Times, Streak } from "@/sections/habit/statsHabit";
+import { DetailsHabit } from "@/sections/habit/detailsHabit";
+import { Streak, Times } from "@/sections/habit/statsHabit";
 import { useHabitStore } from "@/store/habitStore";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
@@ -91,7 +90,7 @@ export const HabitPage = () => {
             />
           </div>
         </div>
-        <div className="grid grid-rows-0 sm:grid-cols-2 gap-8  ">
+        <div className="grid grid-rows-1 md:grid-cols-2 gap-8  ">
           <div className="flex flex-col gap-6">
             <h4>Calendario</h4>
             <div className="w-full h-full grid place-items-center  sm:pl-8">
@@ -101,55 +100,7 @@ export const HabitPage = () => {
               />
             </div>
           </div>
-          <div className="flex flex-col gap-6">
-            <h4>Detalles</h4>
-            <div className="w-full h-full sm:pr-8">
-              <div className="grid grid-rows-4 gap-8 text-sm   h-full ">
-                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
-                  <div className="w-full text-left ml-12">
-                    <Label>Frecuencia</Label>
-                  </div>
-                  <div className="flex flex-col p-2 w-full justify-center gap-2">
-                    <p>{habit.frequency.type}</p>
-                    <Card className="flex p-2 w-full justify-center">
-                      {habit.frequency.type === "DiasEspecificos" ? (
-                        <p>{habit.frequency.dias.join(", ")}</p>
-                      ) : habit.frequency.type === "CadaXdías" ? (
-                        <p>{habit.frequency.veces}</p>
-                      ) : null}
-                    </Card>
-                  </div>
-                </Card>
-                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
-                  <div className="w-full text-left ml-12">
-                    <Label>Meta</Label>
-                  </div>
-                  <div className="flex  flex-col p-2 w-full justify-center gap-2 ">
-                    <p>{habit.goal.type}:</p>
-                    <Card>
-                      <p>{habit.goal.meta} min</p>
-                    </Card>
-                  </div>
-                </Card>
-                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
-                  <div className="w-full text-left ml-12">
-                    <Label>Categoría</Label>
-                  </div>
-                  <Card className="flex p-2 w-full justify-center">
-                    <p>{habit.category}</p>
-                  </Card>
-                </Card>
-                <Card className="grid place-items-center grid-cols-2 gap-3 text-left w-full">
-                  <div className="w-full text-left ml-12">
-                    <Label>Prioridad</Label>
-                  </div>
-                  <Card className="flex p-2 w-full justify-center">
-                    <p>Alta</p>
-                  </Card>
-                </Card>
-              </div>
-            </div>
-          </div>
+          <DetailsHabit habit={habit} />
         </div>
       </div>
       <div className="flex flex-col gap-12 ">
