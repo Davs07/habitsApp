@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Habit } from "@/api/habit-types";
+import { addDays, isAfter } from "date-fns";
+import { Circle } from "lucide-react";
 
 interface HabitCardComponentProps {
   habit: Habit;
@@ -17,8 +19,8 @@ export const HabitCardComponent = ({
   handleRedirect,
   addCompletedDay,
 }: HabitCardComponentProps) => {
-
-    
+  const today = new Date();
+  const tomorrow = addDays(today, 1)
   return (
     <Card
       key={habit.id}
@@ -29,6 +31,10 @@ export const HabitCardComponent = ({
         {habit.name}
       </div>
       {daysOfCurrentWeek.map(({ formattedDate }) => {
+        const isFutureDate = isAfter(new Date(formattedDate), tomorrow);
+        if (isFutureDate) {
+          return <div className="size-8 bg-input rounded-xl"></div>;
+        }
         const isChecked = habit.completedDays?.some(
           (day) => day.date === formattedDate
         );

@@ -17,17 +17,14 @@ export const HabitHeaderComponent = ({
     <Card className="text-gray-600 bg-transparent shadow-none font-bold uppercase text-sm leading-normal grid grid-cols-8 w-full">
       <div className="py-3 px-6 text-left">Hábito</div>
       {daysOfCurrentWeek.map(({ formattedDate, dayName }) => {
-        // Comparar con el día actual utilizando la misma zona horaria
-        const isCurrentDay = isToday(
-          new Date(formattedDate.replace(/-/g, "/"))
-        );
-
+        const isCurrentDay = isToday(new Date(formattedDate));
         return (
           <div
             key={formattedDate}
             className={`py-3 px-6 text-center ${
               isCurrentDay ? "text-main" : ""
-            }`}>
+            }`}
+          >
             {dayName}
           </div>
         );
