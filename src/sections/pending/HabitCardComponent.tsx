@@ -2,7 +2,11 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Habit } from "@/api/habit-types";
 import { addDays, isAfter } from "date-fns";
-import { Circle } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface HabitCardComponentProps {
   habit: Habit;
@@ -20,7 +24,7 @@ export const HabitCardComponent = ({
   addCompletedDay,
 }: HabitCardComponentProps) => {
   const today = new Date();
-  const tomorrow = addDays(today, 1)
+  const tomorrow = addDays(today, 1);
   return (
     <Card
       key={habit.id}
@@ -40,11 +44,20 @@ export const HabitCardComponent = ({
         );
         return (
           <div key={formattedDate} className="py-3 px-6 text-center">
-            <Checkbox
-              checked={isChecked}
-              onClick={() => addCompletedDay(habit.id, formattedDate)}
-              className="form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
-            />
+            <Popover>
+              <PopoverTrigger>
+                <Checkbox
+                  checked={isChecked}
+                  onCheckedChange={() => {
+                    if (true) {
+                      addCompletedDay(habit.id, formattedDate);
+                    }
+                  }}
+                  className="form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+                />
+              </PopoverTrigger>
+              <PopoverContent>Día: {formattedDate}</PopoverContent>
+            </Popover>
           </div>
         );
       })}
