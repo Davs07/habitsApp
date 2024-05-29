@@ -16,10 +16,10 @@ export const HabitList: React.FC = () => {
     navigate(`/habit/${id}`);
   };
 
-  const [open, setOpen] = useState<boolean>(false);
+  const [openHabitForm, setOpenHabitForm] = useState<boolean>(false);
 
   const onClose = () => {
-    setOpen(false);
+    setOpenHabitForm(false);
   };
 
   return (
@@ -47,7 +47,7 @@ export const HabitList: React.FC = () => {
             </CardContent>
           </Card>
         ))}
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={openHabitForm} onOpenChange={setOpenHabitForm}>
           <DialogTrigger className="w-max">
             <Button>Agregar Hábito</Button>
           </DialogTrigger>
