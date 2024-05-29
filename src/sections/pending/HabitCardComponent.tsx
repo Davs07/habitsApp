@@ -6,6 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { PopoverArrow } from "@radix-ui/react-popover";
 import { addDays, isAfter } from "date-fns";
 
@@ -29,7 +30,10 @@ export const HabitCardComponent = ({
   return (
     <Card
       key={habit.id}
-      className="text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center bg-transparent border hover:bg-card  ">
+      className={cn(
+        "text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center bg-transparent border  ",
+        habit.color?.value ? `bg-${habit.color.value}-500` : "bg-card"
+      )}>
       <div
         onClick={() => handleRedirect(habit.id)}
         className="py-3 px-6 w-full  whitespace-nowrap cursor-pointer text-start">
