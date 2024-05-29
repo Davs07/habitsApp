@@ -37,10 +37,20 @@
     /* Nuevos colores */
     --main: 232 91% 55%;
     --main-foreground: 0 0% 100%;
+
+    /* Colors */
+
+    --rose: 244, 63, 94;
+    --red: 220, 38, 38;
+    --green: 154, 226, 57;
+    --blue: 57, 161, 226;
+    --purple: 168, 85, 247;
+
+    --try: #06f3127a;
   }
 
   .dark {
-	--background: 232 67% 8%;
+    --background: 232 67% 8%;
     --foreground: 210 40% 98%;
 
     --card: 235 40% 16%;
@@ -133,4 +143,32 @@ h4 {
   font-size: 12px;
   line-height: 1.5;
   font-weight: 400; /* Grosor normal */
+}
+
+.red {
+  color: var(--red);
+  background-color: rgba(var(--red), 0.5);
+}
+
+.rose {
+  color: var(--rose);
+  background-color: rgba(var(--rose), 0.5);
+
+}
+
+.green {
+  color: var(--green);
+  background-color: rgba(var(--green), 0.5);
+
+}
+
+.blue {
+  color: var(--blue);
+  background-color: rgba(var(--blue), 0.5);
+
+}
+
+.purple {
+  color: var(--purple);
+  background-color: rgba(var(--purple), 0.5);
 }

@@ -69,6 +69,8 @@ export const HabitTry = () => {
     setCurrentWeekStart(getCurrentWeekStart());
   };
 
+  console.log(habits)
+
   return (
     <div className="flex flex-col items-center h-full w-max justify-start gap-8">
       <Greeting user={user} />

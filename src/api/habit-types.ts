@@ -12,7 +12,13 @@ export interface Habit {
   comments: string[];
   completedDays?: CompletedDay[];
   priority?: Priority | null;
+  color?: Color;
 }
+
+export type Color = {
+  value: string;
+  label?: string;
+};
 
 export interface CompletedDay {
   date: string; // Fecha en formato ISO (yyyy-mm-dd)

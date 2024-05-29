@@ -1,4 +1,5 @@
 import {
+  Color,
   CompletedDay,
   Frequency,
   Goal,
@@ -32,6 +33,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Checkbox } from "../ui/checkbox";
+import { Circle } from "lucide-react";
 
 interface HabitFormProps {
   onClose: () => void;
@@ -221,6 +223,8 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
   const [specificDays, setSpecificDays] = useState<Day[]>([]);
   const [intervalDays, setIntervalDays] = useState<number>(1);
   const [category, setCategory] = useState<Category>(Category.Otro);
+  const [colorValue, setColorValue] = useState<Color["value"]>("");
+  const [colorLabel, setColorLabel] = useState<Color["label"]>("");
   const [smartDescription, setSmartDescription] = useState<SmartDescription>({
     purposeAndMotivation: "",
     benefitsAndConsequences: "",
@@ -275,6 +279,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
           ? { type: "DiasEspecificos", dias: specificDays }
           : { type: "CadaXdías", veces: intervalDays },
       category,
+      color: { value: colorValue, label: colorLabel },
       smartDescription,
       comments,
       completedDays,
@@ -356,20 +361,52 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label htmlFor="priority">Prioridad</Label>
-              <Select onValueChange={(value) => setPriority(value as Priority)}>
-                <SelectTrigger id="priority" className="rounded-2xl">
-                  <SelectValue placeholder="Elige una prioridad" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  <SelectItem value="Muy alta">Muy alta</SelectItem>
-                  <SelectItem value="Alta">Alta</SelectItem>
-                  <SelectItem value="Media">Media</SelectItem>
-                  <SelectItem value="Baja">Baja</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="priority">Prioridad</Label>
+                <Select
+                  onValueChange={(value) => setPriority(value as Priority)}>
+                  <SelectTrigger id="priority" className="rounded-2xl">
+                    <SelectValue placeholder="Elige una prioridad" />
+                  </SelectTrigger>
+                  <SelectContent position="popper">
+                    <SelectItem value="Muy alta">Muy alta</SelectItem>
+                    <SelectItem value="Alta">Alta</SelectItem>
+                    <SelectItem value="Media">Media</SelectItem>
+                    <SelectItem value="Baja">Baja</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="color">Color</Label>
+                <Select
+                  onValueChange={(value) =>
+                    setColorValue(value as Color["value"])
+                  }>
+                  <SelectTrigger id="color" className="rounded-2xl">
+                    <SelectValue placeholder="Elige un color" />
+                  </SelectTrigger>
+                  <SelectContent position="popper" className="grid grid-cols-2">
+                    <SelectItem value={`green`}>
+                      <Circle color="#9AE239" fill="#9AE239" />
+                    </SelectItem>
+                    <SelectItem value={`red`}>
+                      <Circle color="#9A39E2" fill="#9A39E2" />
+                    </SelectItem>
+                    <SelectItem value={`rose`}>
+                      <Circle color="red" fill="red" />
+                    </SelectItem>
+                    <SelectItem value={`purple`}>
+                      <Circle color="#E239D6" fill="#E239D6" />
+                    </SelectItem>
+                    <SelectItem value={`blue`}>
+                      <Circle color="#39A1E2" fill="#39A1E2" />
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+
             {/* <SmartDescriptionSection
               smartDescription={smartDescription}
               handleChange={handleChange}

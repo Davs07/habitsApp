@@ -2,6 +2,7 @@ import { HabitForm } from "@/components/habits/habitForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { cn } from "@/lib/utils";
 import { useHabitStore } from "@/store/habitStore";
 import { Ellipsis } from "lucide-react";
 import React, { useState } from "react";
@@ -26,7 +27,13 @@ export const HabitList: React.FC = () => {
     <div className="h-full w-max justify-start items-start gap-2 grid grid-cols-1 mt-32">
       <div className="h-max w-max gap-4 grid grid-cols-1 place-items-center">
         {habits.map((habit) => (
-          <Card className="space-y-0 w-[500px] py-2 rounded-2xl" key={habit.id}>
+          <Card
+            className={cn(
+              "space-y-0 w-[500px] py-2 rounded-2xl",
+
+              habit.color?.value ? `${habit.color.value} ` : "bg-card"
+            )}
+            key={habit.id}>
             <CardHeader
               className="space-y-0 py-1 px-3  flex-row justify-between"
               onClick={() => handleRedirect(habit.id)}>
