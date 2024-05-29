@@ -34,6 +34,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Checkbox } from "../ui/checkbox";
 import { Circle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface HabitFormProps {
   onClose: () => void;
@@ -162,16 +163,41 @@ const FrequencySection: React.FC<{
           <TabsTrigger value="DiasEspecificos">Días específicos</TabsTrigger>
           <TabsTrigger value="CadaXdías">Cada x días</TabsTrigger>
         </TabsList>
-        <TabsContent value="DiasEspecificos">
+
+        <TabsContent value="TodosLosDias">
           <div className="grid grid-cols-3 gap-3">
             {Object.values(Day).map((day) => (
               <div key={day} className="flex items-center space-x-2">
                 <Checkbox
                   id={day}
-                  checked={specificDays.includes(day)}
+                  checked={true}
                   onCheckedChange={() => handleCheckboxChange(day)}
                 />
-                <Label htmlFor={day}>{day}</Label>
+
+                {/* <Label htmlFor={day}>{day}</Label> */}
+              </div>
+            ))}
+          </div>
+        </TabsContent>
+        <TabsContent value="DiasEspecificos">
+          <div className="flex justify-evenly">
+            {Object.values(Day).map((day) => (
+              <div key={day} className="flex items-center space-x-2">
+                {/* <Checkbox
+                  id={day}
+                  checked={specificDays.includes(day)}
+                  onCheckedChange={() => handleCheckboxChange(day)}
+                /> */}
+                <div
+                  className={cn(
+                    "size-5 rounded-full border border-main grid place-content-center text-xs cursor-pointer",
+                    specificDays.includes(day)
+                      ? "bg-main text-white"
+                      : "text-main"
+                  )}
+                  onClick={() => handleCheckboxChange(day)}>
+                  {day.substring(1, 0)}
+                </div>
               </div>
             ))}
           </div>
