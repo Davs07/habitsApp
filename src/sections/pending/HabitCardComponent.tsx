@@ -7,6 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { PopoverArrow } from "@radix-ui/react-popover";
 
 interface HabitCardComponentProps {
   habit: Habit;
@@ -35,7 +36,7 @@ export const HabitCardComponent = ({
         {habit.name}
       </div>
       {daysOfCurrentWeek.map(({ formattedDate }) => {
-        const isFutureDate = isAfter(new Date(formattedDate), tomorrow);
+        const isFutureDate = isAfter(new Date(formattedDate), today);
         if (isFutureDate) {
           return <div className="size-8 bg-input rounded-xl"></div>;
         }
@@ -49,14 +50,24 @@ export const HabitCardComponent = ({
                 <Checkbox
                   checked={isChecked}
                   onCheckedChange={() => {
-                    if (true) {
-                      addCompletedDay(habit.id, formattedDate);
+                    if (
+                      habit.completedDays?.some(
+                        (day) => day.date === formattedDate
+                      )
+                    ) {
+                      console.log(habit.completedDays);
                     }
+                    addCompletedDay(habit.id, formattedDate);
                   }}
                   className="form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
                 />
               </PopoverTrigger>
-              <PopoverContent>Día: {formattedDate}</PopoverContent>
+              <PopoverContent>
+                <PopoverArrow />
+                <p> El tipo de hábito es: {habit.goal.type}</p>
+                <p>Meta: {habit.goal.meta.toString()} </p>
+                <p>Día: {formattedDate}</p>
+              </PopoverContent>
             </Popover>
           </div>
         );

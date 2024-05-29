@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useHabitStore } from "@/store/habitStore";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const HabitList: React.FC = () => {
@@ -12,6 +12,12 @@ export const HabitList: React.FC = () => {
 
   const handleRedirect = (id: string) => {
     navigate(`/habit/${id}`);
+  };
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const onClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -32,12 +38,12 @@ export const HabitList: React.FC = () => {
             </CardContent>
           </Card>
         ))}
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger className="w-max">
             <Button>Agregar Hábito</Button>
           </DialogTrigger>
           <DialogContent className="p-0">
-            <HabitForm />
+            <HabitForm onClose={onClose}/>
           </DialogContent>
         </Dialog>
       </div>

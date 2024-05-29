@@ -36,7 +36,7 @@ export const NavigationWeeks = ({
           className={cn(
             "px-4 py-2 bg-gray-200 text-black hover:text-white  rounded-2xl"
           )}>
-          Semana Actual
+          Hoy
         </Button>
         <Button
           onClick={handleNextWeek}

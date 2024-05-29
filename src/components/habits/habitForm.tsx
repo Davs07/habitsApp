@@ -34,6 +34,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Checkbox } from "../ui/checkbox";
 
 interface HabitFormProps {
+  onClose: () => void;
 }
 
 const FormInput: React.FC<{
@@ -208,7 +209,7 @@ const FrequencySection: React.FC<{
   </>
 ); */
 
-export const HabitForm: React.FC<HabitFormProps> = () => {
+export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
   const addHabit = useHabitStore((state) => state.addHabit);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -382,10 +383,8 @@ export const HabitForm: React.FC<HabitFormProps> = () => {
             Cancelar
           </Button>
         </DialogClose>
-        <DialogClose>
-          <Button type="submit" onClick={handleSubmit}>
-            Crear
-          </Button>
+        <DialogClose asChild onClick={onClose}>
+          <Button onClick={handleSubmit}>Crear</Button>
         </DialogClose>
       </CardFooter>
     </Card>
