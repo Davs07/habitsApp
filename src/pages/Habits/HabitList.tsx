@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useHabitStore } from "@/store/habitStore";
-import { DotSquare, Ellipsis } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

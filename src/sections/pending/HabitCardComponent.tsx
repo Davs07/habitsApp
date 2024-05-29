@@ -1,13 +1,13 @@
+import { Habit } from "@/api/habit-types";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Habit } from "@/api/habit-types";
-import { addDays, isAfter } from "date-fns";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { PopoverArrow } from "@radix-ui/react-popover";
+import { addDays, isAfter } from "date-fns";
 
 interface HabitCardComponentProps {
   habit: Habit;
