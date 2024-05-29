@@ -31,7 +31,7 @@ export const HabitList: React.FC = () => {
             className={cn(
               "space-y-0 w-[500px] py-2 rounded-2xl",
 
-              habit.color?.value ? `${habit.color.value} ` : "bg-card"
+              habit.color?.value ? `bg-${habit.color.value}-500/60` : "bg-card"
             )}
             key={habit.id}>
             <CardHeader
@@ -46,7 +46,7 @@ export const HabitList: React.FC = () => {
                 }}
               />
             </CardHeader>
-            <CardContent className="space-y-0 pt-0 pb-0 flex gap-2 px-3 text-slate-400">
+            <CardContent className="space-y-0 pt-0 pb-0 flex gap-2 px-3 text-slate-800">
               <p className="txs">{habit.category}</p>
               <p className="txs">{habit.frequency.type}</p>
               <p className="txs">{habit.priority}</p>
