@@ -31,8 +31,7 @@ export const HabitCardComponent = ({
     <Card
       key={habit.id}
       className={cn(
-        "text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center bg-transparent border  ",
-        habit.color?.value ? `bg-${habit.color.value}-500` : "bg-card"
+        "text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  border bg-card "
       )}>
       <div
         onClick={() => handleRedirect(habit.id)}
@@ -63,7 +62,13 @@ export const HabitCardComponent = ({
                     }
                     addCompletedDay(habit.id, formattedDate);
                   }}
-                  className="form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out"
+                  className={cn(
+                    "form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out",
+                    habit.color?.value
+                      ? `data-[state=checked]:bg-${habit.color.value}-500`
+                      : "",
+                    isChecked ? "checked" : ""
+                  )}
                 />
               </PopoverTrigger>
               <PopoverContent>

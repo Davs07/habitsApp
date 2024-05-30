@@ -8,6 +8,7 @@ import {
   parseISO,
 } from "date-fns";
 import { Card } from "@/components/ui/card";
+import { Flame } from "lucide-react";
 
 // Define la interfaz para el componente StatsHabitProps
 interface StatsHabitProps {
@@ -84,10 +85,12 @@ export function Streak({ habit }: StatsHabitProps) {
       <div className=" w-full text-sm  grid grid-cols-2 grid-rows-1 gap-8 justify-between  sm:px-8 rounded-2xl">
         <Card className="w-full h-32 grid place-items-center px-0 py-8 ">
           <p>Actual</p>
+          <Flame color={"blue"} />
           <Label>{current} días</Label>
         </Card>
         <Card className="w-full h-32 grid place-items-center px-0 py-8 ">
           <p>Mejor</p>
+          <Flame fill={"blue"} stroke="blue" />
           <Label>{best} días</Label>
         </Card>
       </div>

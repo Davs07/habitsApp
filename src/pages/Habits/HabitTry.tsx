@@ -15,6 +15,7 @@ import {
 import { es } from "date-fns/locale";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Tabs, TabsContent } from "@/components/ui/tabs";
 
 export const HabitTry = () => {
   const habits = useHabitStore<Habit[]>((state) => state.habits);
@@ -69,34 +70,38 @@ export const HabitTry = () => {
     setCurrentWeekStart(getCurrentWeekStart());
   };
 
-  console.log(habits)
+  console.log(habits);
 
   return (
     <div className="flex flex-col items-center h-full w-max justify-start gap-8">
       <Greeting user={user} />
 
-      {/* NavigationWeeks */}
-      <NavigationWeeks
-        currentWeekStart={currentWeekStart}
-        currentWeekEnd={currentWeekEnd}
-        handlePreviousWeek={handlePreviousWeek}
-        handleNextWeek={handleNextWeek}
-        handleCurrentWeek={handleCurrentWeek}
-        capitalize={capitalize}
-      />
+      <Tabs defaultValue="Week">
+        {/* NavigationWeeks */}
+        <NavigationWeeks
+          currentWeekStart={currentWeekStart}
+          currentWeekEnd={currentWeekEnd}
+          handlePreviousWeek={handlePreviousWeek}
+          handleNextWeek={handleNextWeek}
+          handleCurrentWeek={handleCurrentWeek}
+          capitalize={capitalize}
+        />
 
-      <HabitHeaderComponent daysOfCurrentWeek={daysOfCurrentWeek} />
-      <div className="w-full flex flex-col gap-6">
-        {habits.map((habit) => (
-          <HabitCardComponent
-            key={habit.id}
-            habit={habit}
-            daysOfCurrentWeek={daysOfCurrentWeek}
-            handleRedirect={handleRedirect}
-            addCompletedDay={addCompletedDay}
-          />
-        ))}
-      </div>
+        <TabsContent value="Week">
+          <div className="w-full flex flex-col gap-6 ">
+            <HabitHeaderComponent daysOfCurrentWeek={daysOfCurrentWeek} />
+            {habits.map((habit) => (
+              <HabitCardComponent
+                key={habit.id}
+                habit={habit}
+                daysOfCurrentWeek={daysOfCurrentWeek}
+                handleRedirect={handleRedirect}
+                addCompletedDay={addCompletedDay}
+              />
+            ))}
+          </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };

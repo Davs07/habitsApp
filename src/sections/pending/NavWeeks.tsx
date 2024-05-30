@@ -25,24 +25,22 @@ export const NavigationWeeks = ({
   return (
     <div className="flex w-full mb-4 justify-between items-center">
       <div>
-        <Tabs>
-          <TabsList className="flex gap-4">
-            <TabsTrigger
-              value="day"
-              className={cn(
-                "px-4 py-2 w-24 bg-gray-200 text-black hover:text-main rounded-2xl"
-              )}>
-              Día
-            </TabsTrigger>
-            <TabsTrigger
-              value="Week"
-              className={cn(
-                "px-4 py-2 w-24 bg-gray-200 text-black hover:text-main rounded-2xl"
-              )}>
-              Semana
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <TabsList className="flex gap-4">
+          <TabsTrigger
+            value="day"
+            className={cn(
+              "px-4 py-2 w-24 bg-gray-200 text-black hover:text-main rounded-2xl"
+            )}>
+            Día
+          </TabsTrigger>
+          <TabsTrigger
+            value="Week"
+            className={cn(
+              "px-4 py-2 w-24 bg-gray-200 text-black hover:text-main rounded-2xl"
+            )}>
+            Semana
+          </TabsTrigger>
+        </TabsList>
       </div>
 
       <div>
