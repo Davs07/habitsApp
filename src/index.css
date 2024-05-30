@@ -153,19 +153,16 @@ h4 {
 .rose {
   color: var(--rose);
   background-color: rgba(var(--rose), 0.5);
-
 }
 
 .green {
   color: var(--green);
   background-color: rgba(var(--green), 0.5);
-
 }
 
 .blue {
   color: var(--blue);
   background-color: rgba(var(--blue), 0.5);
-
 }
 
 .purple {
@@ -173,17 +170,15 @@ h4 {
   background-color: rgba(var(--purple), 0.5);
 }
 
-
-
 .custom-checkbox::before {
-  content: '';
+  content: "";
   @apply absolute inset-0 flex items-center justify-center;
 }
 .custom-checkbox::after {
-  content: '';
+  content: "";
   @apply hidden;
 }
 .custom-checkbox:checked::after {
-  content: '18';
+  content: "18";
   @apply block text-white;
 }

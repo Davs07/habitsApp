@@ -43,12 +43,12 @@ export const HabitPage = () => {
 
   return (
     <div className="h-full w-full max-w-[900px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12 px-2 ">
-      <div className="flex flex-col gap-12">
-        <div className="flex w-full justify-center">
+      <div className="flex flex-col gap-12 ">
+        <div className="flex w-full justify-center ">
           {editMode ? (
             <h2
               onClick={() => setEditMode(true)}
-              className="w-full text-center py-1 text-4xl font-medium text-primary">
+              className="w-full text-center py-1 text-4xl font-medium text-primary ">
               {habit.name}
             </h2>
           ) : (
