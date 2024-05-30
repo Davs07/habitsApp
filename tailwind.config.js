@@ -12,12 +12,21 @@ module.exports = {
     "text-2xl",
     "text-3xl",
     {
-      pattern: /bg-(red|green|blue|rose|purple)-(100|200|300|500)/,
+      pattern: /bg-(red|green|blue|rose|purple|main)-(100|200|300|500)/,
+      pattern: /border-(red|green|blue|rose|purple|main)-(100|200|300|500)/,
       variants: ["lg", "hover", "focus", "lg:hover"],
     },
   ],
   prefix: "",
   theme: {
+    screens: {
+      xs: "500px",
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     container: {
       center: true,
       padding: "2rem",

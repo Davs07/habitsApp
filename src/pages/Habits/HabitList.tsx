@@ -1,3 +1,4 @@
+import SearchComponent from "@/components/SearchComponent";
 import HabitRadarChart from "@/components/habits/HabitRadarChart";
 import { HabitForm } from "@/components/habits/habitForm";
 import { Button } from "@/components/ui/button";
@@ -10,14 +11,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 import { HabitCardContent } from "@/sections/habits/HabitCardContent";
 import { useHabitStore } from "@/store/habitStore";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import {
+  ArrowDownUp,
   Ellipsis,
   Heart,
+  LayoutGrid,
+  ListFilter,
   MoveUpRight,
   Pencil,
   Plus,
@@ -54,7 +59,7 @@ export const HabitList: React.FC = () => {
       <Tabs
         className=" grid place-items-center max-w-screen-xl w-screen "
         defaultValue={"habits"}>
-        <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between items-center">
           <TabsList className="w-max grid grid-cols-2 bg-transparent gap-2 ">
             <TabsTrigger
               value="habits"
@@ -83,21 +88,40 @@ export const HabitList: React.FC = () => {
             </Dialog>
           </div>
         </div>
-
-        <div className="w-full ">
+        <Separator orientation="horizontal" />
+        <div className="w-full px-2">
           <TabsContent value="stats">
             <HabitRadarChart />
           </TabsContent>
-          <TabsContent value="habits" className="w-full grid ">
-            <div className="h-max w-full gap-4 grid grid-cols-3">
+          <TabsContent value="habits" className="w-full flex flex-col gap-4 ">
+            <div className="w-full justify-between items-center flex  flex-row">
+              <SearchComponent />
+
+              <div>
+                <Button variant={"ghost"} >
+                  <ListFilter size={16} />
+                  Filtro
+                </Button>
+                <Button variant={"ghost"}>
+                  <ArrowDownUp size={16} />
+                  Ordenar
+                </Button>
+                <Button variant={"ghost"}>
+                  <LayoutGrid size={16} />
+                  Mostrar
+                </Button>
+              </div>
+            </div>
+
+            <div className="h-max w-full gap-4 grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3">
               {habits.map((habit) => {
                 return (
                   <Card
                     className={cn(
-                      "space-y-0 w-full max-w-[500px] py-2 rounded-2xl",
+                      "space-y-0 w-full max-w-[500px] py-2 rounded-lg bg-transparent",
 
                       habit.color?.value
-                        ? `bg-${habit.color.value}-500/60`
+                        ? ` border border-${habit.color.value}-500/60`
                         : "bg-card"
                     )}
                     key={habit.id}>
@@ -124,7 +148,7 @@ export const HabitList: React.FC = () => {
                                 handleRedirect(habit.id);
                               }}>
                               <MoveUpRight size={16} />
-                              <p>Ver detalles</p>
+                              <p>Abrir</p>
                             </Button>
                           </DropdownMenuItem>
 

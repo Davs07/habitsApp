@@ -10,7 +10,7 @@ type Props = {
 
 export const HabitCardContent = ({ habit }: Props) => {
   return (
-    <CardContent className="space-y-0 pt-0 pb-0 flex gap-2 px-3 text-slate-800">
+    <CardContent className="space-y-0 pt-0 pb-0 gap-2 px-3 text-slate-800 flex flex-wrap">
       <Button variant={"ghost"} className="txs">
         {habit.category}
       </Button>
