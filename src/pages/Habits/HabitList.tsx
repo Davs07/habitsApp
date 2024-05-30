@@ -3,6 +3,7 @@ import HabitRadarChart from "@/components/habits/HabitRadarChart";
 import { HabitForm } from "@/components/habits/habitForm";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Text } from "@/components/ui/custom/text";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -100,7 +101,7 @@ export const HabitList: React.FC = () => {
               <div>
                 <Button variant={"ghost"}>
                   <ListFilter size={16} />
-                  Filtro
+                  <Text variant={"psm"}>Filtrar</Text>
                 </Button>
                 <Button variant={"ghost"}>
                   <ArrowDownUp size={16} />

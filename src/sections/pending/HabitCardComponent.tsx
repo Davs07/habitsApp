@@ -36,7 +36,7 @@ export const HabitCardComponent = ({
     <Card
       key={habit.id}
       className={cn(
-        `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-l-4 border-l-${habit.color?.value}-500`
+        `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-input border-l-4 border-l-${habit.color?.value}-500`
       )}>
       <div
         onClick={() => handleRedirect(habit.id)}
@@ -56,7 +56,7 @@ export const HabitCardComponent = ({
                 {!isFutureDate ? (
                   <div
                     className={cn(
-                      "size-8  rounded-lg grid place-content-center text-xs cursor-pointer",
+                      `size-8 border-2  rounded-lg border-${habit.color?.value}-500/30 grid place-content-center text-xs cursor-pointer`,
                       isChecked
                         ? `bg-${habit.color?.value}-500`
                         : `bg-${habit.color?.value}-500/30`
