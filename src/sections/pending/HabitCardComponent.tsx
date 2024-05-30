@@ -27,22 +27,25 @@ export const HabitCardComponent = ({
 }: HabitCardComponentProps) => {
   const today = new Date();
   const tomorrow = addDays(today, 1);
+
+  if (habit.color) {
+    console.log(habit.name, habit.color.value);
+  }
+
   return (
     <Card
       key={habit.id}
       className={cn(
-        "text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  border bg-card "
+        `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-l-4 border-l-${habit.color?.value}-500`
       )}>
       <div
         onClick={() => handleRedirect(habit.id)}
-        className="py-3 px-6 w-full  whitespace-nowrap cursor-pointer text-start">
+        className="py-0 px-4 w-full  whitespace-nowrap cursor-pointer text-start">
         {habit.name}
       </div>
       {daysOfCurrentWeek.map(({ formattedDate }) => {
         const isFutureDate = isAfter(new Date(formattedDate), today);
-        if (isFutureDate) {
-          return <div className="size-8 bg-input rounded-xl"></div>;
-        }
+
         const isChecked = habit.completedDays?.some(
           (day) => day.date === formattedDate
         );
@@ -50,26 +53,28 @@ export const HabitCardComponent = ({
           <div key={formattedDate} className="py-3 px-6 text-center">
             <Popover>
               <PopoverTrigger>
-                <Checkbox
-                  checked={isChecked}
-                  onCheckedChange={() => {
-                    if (
-                      habit.completedDays?.some(
-                        (day) => day.date === formattedDate
-                      )
-                    ) {
-                      console.log(habit.completedDays);
-                    }
-                    addCompletedDay(habit.id, formattedDate);
-                  }}
-                  className={cn(
-                    "form-checkbox h-8 w-8 bg-slate-200 border-none ring-rose-400 focus-visible:ring-blue-500 transition duration-150 ease-in-out",
-                    habit.color?.value
-                      ? `data-[state=checked]:bg-${habit.color.value}-500`
-                      : "",
-                    isChecked ? "checked" : ""
-                  )}
-                />
+                {!isFutureDate ? (
+                  <div
+                    className={cn(
+                      "size-8  rounded-lg grid place-content-center text-xs cursor-pointer",
+                      isChecked
+                        ? `bg-${habit.color?.value}-500`
+                        : `bg-${habit.color?.value}-500/30`
+                    )}
+                    onClick={() => {
+                      if (
+                        habit.completedDays?.some(
+                          (day) => day.date === formattedDate
+                        )
+                      ) {
+                        console.log(habit.completedDays);
+                      }
+                      addCompletedDay(habit.id, formattedDate);
+                    }}></div>
+                ) : (
+                  <div
+                    className={`size-8 border-2  rounded-lg border-${habit.color?.value}-500/30`}></div>
+                )}
               </PopoverTrigger>
               <PopoverContent>
                 <PopoverArrow />

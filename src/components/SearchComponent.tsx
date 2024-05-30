@@ -4,6 +4,9 @@ import React from "react";
 type Props = {};
 
 const SearchComponent = (props: Props) => {
+
+  const searchPlaceHolder = "Buscar Hábitos"
+
   return (
     <form className="form relative w-96 ">
       <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1">
@@ -11,7 +14,7 @@ const SearchComponent = (props: Props) => {
       </button>
       <input
         className="input rounded-2xl px-8 py-2 border border-transparent w-full bg-main/10 focus:outline-none focus:border-main placeholder-gray-400 transition-all duration-300 "
-        placeholder="Search..."
+        placeholder={searchPlaceHolder}
         type="text"
       />
       <button

@@ -98,7 +98,7 @@ export const HabitList: React.FC = () => {
               <SearchComponent />
 
               <div>
-                <Button variant={"ghost"} >
+                <Button variant={"ghost"}>
                   <ListFilter size={16} />
                   Filtro
                 </Button>
@@ -118,7 +118,7 @@ export const HabitList: React.FC = () => {
                 return (
                   <Card
                     className={cn(
-                      "space-y-0 w-full max-w-[500px] py-2 rounded-lg bg-transparent",
+                      "space-y-0 w-full max-w-[500px] py-2 rounded-lg bg-card",
 
                       habit.color?.value
                         ? ` border border-${habit.color.value}-500/60`

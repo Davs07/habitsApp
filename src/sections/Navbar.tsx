@@ -19,10 +19,10 @@ export const Navbar = () => {
   };
 
   return (
-    <aside className="col-span-2 bg-card h-full w-[280px] justify-start p-4">
+    <aside className="col-span-2 bg-card h-full w-[280px] flex justify-start p-4">
       <div className="w-full h-full">
         <nav>
-          <ul className="flex flex-col gap-1 ">
+          <ul className="flex flex-col gap-1 text-primary">
             <Dialog open={openHabitForm} onOpenChange={setOpenHabitForm}>
               <DialogTrigger>
                 <Button variant="outline" className="mb-2 hover:text-main">

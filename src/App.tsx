@@ -6,9 +6,9 @@ import { Navbar } from "./sections/Navbar";
 
 function App() {
   return (
-    <div className="h-screen overflow-hidden flex flex-row   bg-background ">
-      {/* <Navbar /> */}
-      <div className="w-full flex-1 flex justify-center overflow-y-auto max-w-screen overflow-x-hidden ">
+    <div className="h-screen overflow-hidden flex flex-row   bg-background dark">
+      <Navbar />
+      <div className="w-full flex-1 flex justify-center overflow-y-auto max-w-screen overflow-x-hidden text-primary ">
         <Routes>
           <Route path="" element={<HabitTry />} />
           <Route path="/habitlist" element={<HabitList />} />

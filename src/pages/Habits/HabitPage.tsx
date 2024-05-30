@@ -2,6 +2,7 @@ import { Habit } from "@/api/habit-types";
 import { Calendario } from "@/components/Calendario";
 import { Chart } from "@/components/Chart";
 import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { DetailsHabit } from "@/sections/habit/detailsHabit";
 import { Streak, Times } from "@/sections/habit/statsHabit";
@@ -43,7 +44,7 @@ export const HabitPage = () => {
 
   return (
     <div className="h-full w-full max-w-[900px] justify-start items-start gap-12 col-span-6 grid grid-cols-1 py-12 px-2 ">
-      <div className="flex flex-col gap-12 ">
+      <div className="flex flex-col gap-12 w-full">
         <div className="flex w-full justify-center ">
           {editMode ? (
             <h2
@@ -73,47 +74,75 @@ export const HabitPage = () => {
             />
           )}
         </div>
-        <h3>Información</h3>
-        <div className="flex flex-col gap-8">
-          <h4>Descripción</h4>
-          <div className="w-full sm:px-8">
-            <Textarea
-              id="description"
-              placeholder="Descripción"
-              onChange={(event) => {
-                updateHabit(habit.id, {
-                  description: event.target.value,
-                });
-              }}
-              className="rounded-2xl bg-white border-none resize-none"
-              value={habit.description}
-            />
-          </div>
-        </div>
-        <div className="grid grid-rows-1 md:grid-cols-2 gap-8  ">
-          <div className="flex flex-col gap-6">
-            <h4>Calendario</h4>
-            <div className="w-full h-full grid place-items-center  sm:pl-8">
-              <Calendario
-                habit={habit}
-                handleCheckboxChange={handleCheckboxChange}
-              />
+
+        <div className="w-full">
+          <Tabs defaultValue="information" className="w-full   ">
+            <div className="w-full grid place-content-center">
+              <TabsList className="w-[480px] grid place-items-center grid-cols-4">
+                <TabsTrigger value="information">Información</TabsTrigger>
+                <TabsTrigger value="stats">Estadísticas</TabsTrigger>
+                <TabsTrigger value="comments">Notas</TabsTrigger>
+                <TabsTrigger value="config">Configuración</TabsTrigger>
+              </TabsList>
             </div>
-          </div>
-          <DetailsHabit habit={habit} />
-        </div>
-      </div>
-      <div className="flex flex-col gap-12 ">
-        <h3 className="mb-2">Estadísticas</h3>
-        <div className="flex w-full flex-col gap-8 ">
-          <Streak habit={habit} />
-          <Times habit={habit} />
-          <div className="flex flex-col gap-6 w-full ">
-            <h4>Mes</h4>
-            <div className=" w-full sm:px-8 mb-8">
-              <Chart habit={habit} completedDays={habit.completedDays} />
-            </div>
-          </div>
+            <TabsContent value="information">
+              <div className="flex flex-col gap-12 ">
+                <h3>Información</h3>
+                <div className="flex flex-col gap-8">
+                  <h4>Descripción</h4>
+                  <div className="w-full sm:px-8">
+                    <Textarea
+                      id="description"
+                      placeholder="Descripción"
+                      onChange={(event) => {
+                        updateHabit(habit.id, {
+                          description: event.target.value,
+                        });
+                      }}
+                      className="rounded-2xl  border resize-none"
+                      value={habit.description}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-rows-1 md:grid-cols-2 gap-8  ">
+                  <div className="flex flex-col gap-6">
+                    <h4>Calendario</h4>
+                    <div className="w-full h-full grid place-items-center  sm:pl-8">
+                      <Calendario
+                        habit={habit}
+                        handleCheckboxChange={handleCheckboxChange}
+                      />
+                    </div>
+                  </div>
+                  <DetailsHabit habit={habit} />
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="stats">
+              <div className="flex flex-col gap-12 ">
+                <h3 className="mb-2">Estadísticas</h3>
+                <div className="flex w-full flex-col gap-8 ">
+                  <Streak habit={habit} />
+                  <Times habit={habit} />
+                  <div className="flex flex-col gap-6 w-full ">
+                    <h4>Mes</h4>
+                    <div className=" w-full sm:px-8 mb-8">
+                      <Chart
+                        habit={habit}
+                        completedDays={habit.completedDays}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="comments">
+              <Times habit={habit} />
+            </TabsContent>
+            <TabsContent value="config">
+              <Times habit={habit} />
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

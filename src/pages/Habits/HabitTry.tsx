@@ -88,7 +88,7 @@ export const HabitTry = () => {
         />
 
         <TabsContent value="Week">
-          <div className="w-full flex flex-col gap-6 ">
+          <div className="w-full flex flex-col gap-2 justify-center ">
             <HabitHeaderComponent daysOfCurrentWeek={daysOfCurrentWeek} />
             {habits.map((habit) => (
               <HabitCardComponent
