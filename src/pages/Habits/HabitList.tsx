@@ -31,27 +31,27 @@ import {
   Share,
   Trash,
 } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { CategoryColors } from "@/api/shared-types";
 
 export const HabitList: React.FC = () => {
   const habits = useHabitStore((state) => state.habits);
+  const fetchHabits = useHabitStore((state) => state.fetchHabits);
   const onRemoveHabit = useHabitStore((state) => state.removeHabit);
   const navigate = useNavigate();
 
   const [isEditMode, setIsEditMode] = useState(false);
+  const [openHabitForm, setOpenHabitForm] = useState<boolean>(false);
 
-  fetch("http://localhost:3000/users")
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+  useEffect(() => {
+    fetchHabits();
+  }, [fetchHabits]);
 
   const handleRedirect = (id: string) => {
     navigate(`/habit/${id}`);
   };
-
-  const [openHabitForm, setOpenHabitForm] = useState<boolean>(false);
 
   const onClose = () => {
     setOpenHabitForm(false);

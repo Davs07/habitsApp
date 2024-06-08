@@ -9,7 +9,7 @@ export const habits: Habit[] = [
     name: "Lectura diaria",
     description: "Leer al menos 30 minutos cada día.",
     frequency: { type: "TodosLosDias" },
-    category: Category.Productividad,
+    category: Category.Crecimiento,
     goal: { type: "Cronometro", meta: 30 },
     smartDescription: {
       purposeAndMotivation:
@@ -54,7 +54,7 @@ export const habits: Habit[] = [
       type: "DiasEspecificos",
       dias: [Day.Lunes, Day.Miercoles, Day.Viernes],
     },
-    category: Category.Bienestar,
+    category: Category.Salud,
     goal: { type: "Cronometro", meta: 60 },
     smartDescription: {
       purposeAndMotivation:
@@ -80,7 +80,7 @@ export const habits: Habit[] = [
     name: "Meditación diaria",
     description: "Practicar meditación durante 15 minutos cada mañana.",
     frequency: { type: "TodosLosDias" },
-    category: Category.Bienestar,
+    category: Category.Salud,
     goal: { type: "Cronometro", meta: 15 },
     smartDescription: {
       purposeAndMotivation:
@@ -109,7 +109,7 @@ export const habits: Habit[] = [
       type: "CadaXdías",
       veces: 3,
     },
-    category: Category.Bienestar,
+    category: Category.Salud,
     goal: {
       type: "Subitems",
       meta: ["Escribir tres cosas por las que estoy agradecido"],

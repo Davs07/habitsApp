@@ -21,12 +21,20 @@ export const useHabitStore = create(
     (set) => ({
       habits: [], // Estado inicial vacío para los hábitos
       fetchHabits: async () => {
-        const habits = await getHabits();
-        set({ habits });
+        try {
+          const habits = await getHabits();
+          set({ habits });
+        } catch (error) {
+          console.error("Error fetching habits:", error);
+        }
       },
       addHabit: async (newHabit) => {
-        const habit = await addHabit(newHabit);
-        set((state) => ({ habits: [...state.habits, habit] }));
+        try {
+          const habit = await addHabit(newHabit);
+          set((state) => ({ habits: [...state.habits, habit] }));
+        } catch (error) {
+          console.error("Error adding habit:", error);
+        }
       },
 
       updateHabit: (id, updatedHabit) =>

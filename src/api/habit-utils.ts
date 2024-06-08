@@ -45,7 +45,7 @@ function validateFrequency(frequency?: Frequency): Frequency {
 
 function validateCategory(category?: Category): Category {
   if (!category) {
-    return Category.Otro;
+    return Category.Crecimiento;
   }
 
   return category;
