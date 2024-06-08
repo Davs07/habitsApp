@@ -1,6 +1,6 @@
 import { Habit } from "@/api/habit-types";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
+import { CategoryColors } from "@/api/shared-types";
 import {
   Popover,
   PopoverContent,
@@ -28,15 +28,17 @@ export const HabitCardComponent = ({
   const today = new Date();
   const tomorrow = addDays(today, 1);
 
-  if (habit.color) {
-    console.log(habit.name, habit.color.value);
+  if (habit.category) {
+    console.log(habit.name, CategoryColors[habit.category]);
   }
 
   return (
     <Card
       key={habit.id}
       className={cn(
-        `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-input border-l-4 border-l-${habit.color?.value}-500`
+        `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-input border-l-4 border-l-${
+          CategoryColors[habit.category]
+        }-500`
       )}>
       <div
         onClick={() => handleRedirect(habit.id)}
@@ -56,10 +58,12 @@ export const HabitCardComponent = ({
                 {!isFutureDate ? (
                   <div
                     className={cn(
-                      `size-8 border-2  rounded-lg border-${habit.color?.value}-500/30 grid place-content-center text-xs cursor-pointer`,
+                      `size-8 border-2  rounded-lg border-${
+                        CategoryColors[habit.category]
+                      }-500/30 grid place-content-center text-xs cursor-pointer`,
                       isChecked
-                        ? `bg-${habit.color?.value}-500`
-                        : `bg-${habit.color?.value}-500/30`
+                        ? `bg-${CategoryColors[habit.category]}-500`
+                        : `bg-${CategoryColors[habit.category]}-500/30`
                     )}
                     onClick={() => {
                       if (
@@ -73,7 +77,9 @@ export const HabitCardComponent = ({
                     }}></div>
                 ) : (
                   <div
-                    className={`size-8 border-2  rounded-lg border-${habit.color?.value}-500/30`}></div>
+                    className={`size-8 border-2  rounded-lg border-${
+                      CategoryColors[habit.category]
+                    }-500/30`}></div>
                 )}
               </PopoverTrigger>
               <PopoverContent>

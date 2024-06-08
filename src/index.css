@@ -169,16 +169,3 @@ h4 {
   color: var(--purple);
   background-color: rgba(var(--purple), 0.5);
 }
-
-.custom-checkbox::before {
-  content: "";
-  @apply absolute inset-0 flex items-center justify-center;
-}
-.custom-checkbox::after {
-  content: "";
-  @apply hidden;
-}
-.custom-checkbox:checked::after {
-  content: "18";
-  @apply block text-white;
-}

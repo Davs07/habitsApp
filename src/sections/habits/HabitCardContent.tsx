@@ -10,22 +10,16 @@ type Props = {
 };
 
 export const HabitCardContent = ({ habit }: Props) => {
-
-  
-
   return (
     <CardContent className="space-y-0 pt-0 pb-0 gap-2 px-3 text-secondary-foreground flex flex-wrap">
       <Button variant={"ghost"} className="txs">
         {habit.category}
       </Button>
       <Button variant={"ghost"} className="txs">
-        {habit.frequency.type}
-      </Button>
-      <Button variant={"ghost"} className="txs">
         {habit.priority}
       </Button>
       <Button variant={"ghost"} className="txs">
-        {habit.goal.meta.toString()}
+        {habit.frequency.type}
       </Button>
     </CardContent>
   );

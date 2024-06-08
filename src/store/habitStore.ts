@@ -2,9 +2,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { Habit, CompletedDay } from "@/api/habit-types";
+import { addHabit, getHabits } from "@/api/habitService";
 
 interface HabitState {
   habits: Habit[];
+  fetchHabits: () => void;
   addHabit: (newHabit: Habit) => void;
   updateHabit: (id: Habit["id"], updatedHabit: Partial<Habit>) => void;
   removeHabit: (id: Habit["id"]) => void;
@@ -18,8 +20,14 @@ export const useHabitStore = create(
   persist<HabitState>(
     (set) => ({
       habits: [], // Estado inicial vacío para los hábitos
-      addHabit: (newHabit: Habit) =>
-        set((state) => ({ habits: [...state.habits, newHabit] })),
+      fetchHabits: async () => {
+        const habits = await getHabits();
+        set({ habits });
+      },
+      addHabit: async (newHabit) => {
+        const habit = await addHabit(newHabit);
+        set((state) => ({ habits: [...state.habits, habit] }));
+      },
 
       updateHabit: (id, updatedHabit) =>
         set((state) => ({

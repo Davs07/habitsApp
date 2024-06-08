@@ -34,12 +34,18 @@ import {
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { CategoryColors } from "@/api/shared-types";
+
 export const HabitList: React.FC = () => {
   const habits = useHabitStore((state) => state.habits);
   const onRemoveHabit = useHabitStore((state) => state.removeHabit);
   const navigate = useNavigate();
 
   const [isEditMode, setIsEditMode] = useState(false);
+
+  fetch("http://localhost:3000/users")
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 
   const handleRedirect = (id: string) => {
     navigate(`/habit/${id}`);
@@ -118,13 +124,9 @@ export const HabitList: React.FC = () => {
               {habits.map((habit) => {
                 return (
                   <Card
-                    className={cn(
-                      "space-y-0 w-full max-w-[500px] py-2 rounded-lg bg-card",
-
-                      habit.color?.value
-                        ? ` border border-${habit.color.value}-500/60`
-                        : "bg-card"
-                    )}
+                    className={`border border-${
+                      CategoryColors[habit.category]
+                    }-500/60 space-y-0 w-full max-w-[500px] py-2 rounded-lg `}
                     key={habit.id}>
                     <CardHeader className="space-y-0 py-1 px-3  flex-row justify-between">
                       <div key={habit.id}>

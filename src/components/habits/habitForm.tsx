@@ -1,5 +1,4 @@
 import {
-  Color,
   CompletedDay,
   Frequency,
   Goal,
@@ -33,7 +32,6 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Checkbox } from "../ui/checkbox";
-import { Circle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface HabitFormProps {
@@ -248,9 +246,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
     useState<Frequency["type"]>("TodosLosDias");
   const [specificDays, setSpecificDays] = useState<Day[]>([]);
   const [intervalDays, setIntervalDays] = useState<number>(1);
-  const [category, setCategory] = useState<Category>(Category.Otro);
-  const [colorValue, setColorValue] = useState<Color["value"]>("");
-  const [colorLabel, setColorLabel] = useState<Color["label"]>("");
+  const [category, setCategory] = useState<Category>(Category.Crecimiento);
   const [smartDescription, setSmartDescription] = useState<SmartDescription>({
     purposeAndMotivation: "",
     benefitsAndConsequences: "",
@@ -305,7 +301,6 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
           ? { type: "DiasEspecificos", dias: specificDays }
           : { type: "CadaXdías", veces: intervalDays },
       category,
-      color: { value: colorValue, label: colorLabel },
       smartDescription,
       comments,
       completedDays,
@@ -321,7 +316,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
     setFrequencyType("TodosLosDias");
     setSpecificDays([]);
     setIntervalDays(1);
-    setCategory(Category.Otro);
+    setCategory(Category.Crecimiento);
     setPriority("");
     setSmartDescription({
       purposeAndMotivation: "",
@@ -378,12 +373,21 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
                   <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value={Category.Salud}>Salud</SelectItem>
-                  <SelectItem value={Category.Bienestar}>Bienestar</SelectItem>
-                  <SelectItem value={Category.Productividad}>
-                    Productividad
+                  <SelectItem value={Category.Salud}>
+                    {Category.Salud}
                   </SelectItem>
-                  <SelectItem value={Category.Otro}>Otro</SelectItem>
+                  <SelectItem value={Category.Relaciones}>
+                    {Category.Relaciones}
+                  </SelectItem>
+                  <SelectItem value={Category.Desarrollo}>
+                    {Category.Desarrollo}
+                  </SelectItem>
+                  <SelectItem value={Category.Finanzas}>
+                    {Category.Finanzas}
+                  </SelectItem>
+                  <SelectItem value={Category.Crecimiento}>
+                    {Category.Crecimiento}
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -400,34 +404,6 @@ export const HabitForm: React.FC<HabitFormProps> = ({ onClose }) => {
                     <SelectItem value="Alta">Alta</SelectItem>
                     <SelectItem value="Media">Media</SelectItem>
                     <SelectItem value="Baja">Baja</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div>
-                <Label htmlFor="color">Color</Label>
-                <Select
-                  onValueChange={(value) =>
-                    setColorValue(value as Color["value"])
-                  }>
-                  <SelectTrigger id="color" className="rounded-2xl">
-                    <SelectValue placeholder="Elige un color" />
-                  </SelectTrigger>
-                  <SelectContent position="popper" className="grid grid-cols-2">
-                    <SelectItem value={`green`}>
-                      <Circle color="#9AE239" fill="#9AE239" />
-                    </SelectItem>
-                    <SelectItem value={`red`}>
-                      <Circle color="#9A39E2" fill="#9A39E2" />
-                    </SelectItem>
-                    <SelectItem value={`rose`}>
-                      <Circle color="red" fill="red" />
-                    </SelectItem>
-                    <SelectItem value={`purple`}>
-                      <Circle color="#E239D6" fill="#E239D6" />
-                    </SelectItem>
-                    <SelectItem value={`blue`}>
-                      <Circle color="#39A1E2" fill="#39A1E2" />
-                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
