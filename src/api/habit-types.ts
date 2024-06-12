@@ -4,12 +4,12 @@ import { Category, Day } from "./shared-types";
 export interface Habit {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   frequency: Frequency;
-  category: Category;
-  goal: Goal;
-  smartDescription: SmartDescription;
-  comments: string[];
+  category?: Category;
+  goal?: Goal;
+  smartDescription?: SmartDescription;
+  comments?: string[];
   completedDays?: CompletedDay[];
   priority?: Priority | null;
 }
