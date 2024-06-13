@@ -1,9 +1,7 @@
 import { Habit } from "@/api/habit-types";
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
-import { useHabitStore } from "@/store/habitStore";
-import { Icon } from "lucide-react";
-import { useParams } from "react-router-dom";
+
 
 type Props = {
   habit: Habit;

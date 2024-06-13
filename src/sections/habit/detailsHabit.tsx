@@ -1,7 +1,6 @@
 import { Habit } from "@/api/habit-types";
 import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import React from "react";
 
 interface detailsHabitProps {
   habit: Habit;

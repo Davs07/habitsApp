@@ -2,7 +2,7 @@ import SearchComponent from "@/components/SearchComponent";
 import HabitRadarChart from "@/components/habits/HabitRadarChart";
 import { HabitForm } from "@/components/habits/habitForm";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 import { Text } from "@/components/ui/custom/text";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -14,7 +14,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 import { HabitCardContent } from "@/sections/habits/HabitCardContent";
 import { useHabitStore } from "@/store/habitStore";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
@@ -33,7 +32,6 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CategoryColors } from "@/api/shared-types";
 
 export const HabitList: React.FC = () => {
   const habits = useHabitStore((state) => state.habits);

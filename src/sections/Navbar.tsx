@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Plus, SquareCheck } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Habit } from "@/api/habit-types";
-import { useHabitStore } from "@/store/habitStore";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { HabitForm } from "@/components/habits/habitForm";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useHabitStore } from "@/store/habitStore";
 import { useState } from "react";
 
 export const Navbar = () => {
