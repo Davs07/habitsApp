@@ -5,7 +5,7 @@ export interface Habit {
   id: string;
   name: string;
   description?: string;
-  frequency: Frequency;
+  frequency?: Frequency;
   category?: Category;
   goal?: Goal;
   smartDescription?: SmartDescription;

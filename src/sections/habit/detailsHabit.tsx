@@ -17,14 +17,18 @@ export const DetailsHabit = ({ habit }: detailsHabitProps) => {
               <p>Frecuencia</p>
             </div>
             <div className="flex flex-col p-2 w-full justify-center gap-2">
-              <Label>{habit.frequency.type}</Label>
-              <Card className="flex p-2 w-full justify-center">
-                {habit.frequency.type === "DiasEspecificos" ? (
-                  <p>{habit.frequency.dias.join(", ")}</p>
-                ) : habit.frequency.type === "CadaXdías" ? (
-                  <p>{habit.frequency.veces}</p>
-                ) : null}
-              </Card>
+              {habit.frequency && (
+                <>
+                  <Label>{habit.frequency.type}</Label>
+                  <Card className="flex p-2 w-full justify-center">
+                    {habit.frequency.type === "DiasEspecificos" ? (
+                      <p>{habit.frequency.dias.join(", ")}</p>
+                    ) : habit.frequency.type === "CadaXdías" ? (
+                      <p>{habit.frequency.veces}</p>
+                    ) : null}
+                  </Card>
+                </>
+              )}
             </div>
           </Card>
           <Card className=" row-span-4 flex flex-col justify-center  gap-3 w-full">
@@ -32,10 +36,14 @@ export const DetailsHabit = ({ habit }: detailsHabitProps) => {
               <p>Meta</p>
             </div>
             <div className="flex  flex-col p-2 w-full justify-center gap-2 ">
-              <Label>{habit.goal.type}:</Label>
-              <Card>
-                <p>{habit.goal.meta} min</p>
-              </Card>
+              {habit.goal && (
+                <>
+                  <Label>{habit.goal.type}:</Label>
+                  <Card>
+                    <p>{habit.goal.meta} min</p>
+                  </Card>
+                </>
+              )}
             </div>
           </Card>
           <Card className=" row-span-3 flex flex-col justify-center  gap-3 w-full">

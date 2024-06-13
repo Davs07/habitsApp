@@ -37,7 +37,7 @@ export const HabitCardComponent = ({
       key={habit.id}
       className={cn(
         `text-gray-600 uppercase text-sm leading-normal grid grid-cols-8 h-16 place-items-center  shadow-none rounded-lg bg-card border border-input border-l-4 border-l-${
-          CategoryColors[habit.category]
+          habit.category ? CategoryColors[habit.category] : "red"
         }-500`
       )}>
       <div
@@ -51,6 +51,11 @@ export const HabitCardComponent = ({
         const isChecked = habit.completedDays?.some(
           (day) => day.date === formattedDate
         );
+
+        if (!habit.category || !habit.goal) {
+          return <div>No</div>;
+        }
+
         return (
           <div key={formattedDate} className="py-3 px-6 text-center">
             <Popover>

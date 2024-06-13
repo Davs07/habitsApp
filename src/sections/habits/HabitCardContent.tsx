@@ -19,7 +19,7 @@ export const HabitCardContent = ({ habit }: Props) => {
         {habit.priority}
       </Button>
       <Button variant={"ghost"} className="txs">
-        {habit.frequency.type}
+        {habit.frequency ? habit.frequency.type : "No hay frecuencia"}
       </Button>
     </CardContent>
   );

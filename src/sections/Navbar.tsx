@@ -34,9 +34,10 @@ export const Navbar = () => {
                 <HabitForm onClose={onClose} />
               </DialogContent>
             </Dialog>
-            <li>
+             <li>
               <Link to="">
                 <Button
+                  asChild
                   variant={"ghost"}
                   className={`w-full justify-start hover:text-main ${
                     location.pathname === "/" ? "bg-secondary text-main" : ""
@@ -45,9 +46,12 @@ export const Navbar = () => {
                 </Button>
               </Link>
             </li>
+
+            {/*
             <li>
               <Link to="/habitlist">
                 <Button
+                  asChild
                   variant={"ghost"}
                   className={`w-full justify-between font-bold hover:text-main ${
                     location.pathname === "/habitlist"
@@ -64,6 +68,7 @@ export const Navbar = () => {
               <li key={habit.id}>
                 <Link to={`/habit/${habit.id}`}>
                   <Button
+                    asChild
                     variant={"ghost"}
                     className={`w-full justify-start gap-2 font-normal hover:text-main ${
                       location.pathname === `/habit/${habit.id}`
@@ -75,7 +80,7 @@ export const Navbar = () => {
                   </Button>
                 </Link>
               </li>
-            ))}
+            ))} */}
           </ul>
         </nav>
       </div>

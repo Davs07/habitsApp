@@ -33,7 +33,6 @@ import {
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { CategoryColors } from "@/api/shared-types";
 
 export const HabitList: React.FC = () => {
@@ -124,9 +123,7 @@ export const HabitList: React.FC = () => {
               {habits.map((habit) => {
                 return (
                   <Card
-                    className={`border border-${
-                      CategoryColors[habit.category]
-                    }-500/60 space-y-0 w-full max-w-[500px] py-2 rounded-lg `}
+                    className={`border border-blue-500/60 space-y-0 w-full max-w-[500px] py-2 rounded-lg `}
                     key={habit.id}>
                     <CardHeader className="space-y-0 py-1 px-3  flex-row justify-between">
                       <div key={habit.id}>
